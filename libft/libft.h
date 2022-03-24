@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 12:21:50 by thakala           #+#    #+#             */
-/*   Updated: 2021/12/26 13:43:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/24 14:04:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,5 @@ size_t	ft_abs(long value);
 t_list	*ft_lstpop(t_list *head, t_list *remove, \
 	void (*del)(void *d, size_t s));
 void	*ft_memrplc(void *mem, size_t len, int target, int filler);
-
-typedef struct s_hashtable
-{
-	t_list	**t;
-	size_t	size;
-}	t_ht;
-
-void	*ft_htfetch(t_ht *ht, ssize_t seed);
-size_t	ft_hthash(ssize_t seed, size_t size);
-t_ht	*ft_htnew(size_t pens);
-void	*ft_htupdate(t_ht *ht, ssize_t seed, void *content);
 
 #endif
