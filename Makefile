@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/24 14:16:21 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/25 14:51:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,17 +93,6 @@ LIBFT_OBJECT_PATHS = $(addsuffix .o, $(addprefix $(LIBFT_OBJECTS_DIR), \
 	ft_toupper \
 	get_next_line))
 
-FILES = \
-	convert_character \
-	convert_float \
-	convert_hexadecimal \
-	convert_octal \
-	convert_pointer \
-	convert_signed \
-	convert_string \
-	convert_unsigned \
-	ft_printf
-
 SOURCES = sources
 OBJECTS = objects
 INCLUDES = includes
@@ -117,7 +106,7 @@ FOLDER_LIST = \
 	$(LIBRARIES) \
 	$(DEBUG_OBJECTS)
 
-H_FILES = ft_printf
+H_FILES = fdf
 
 C_PATHS = $(addsuffix .c, $(addprefix $(SOURCES)/, $(FILES)))
 H_PATHS = $(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
@@ -133,7 +122,7 @@ all: $(NAME)
 
 $(NAME): .pre_requisites $(O_PATHS) Makefile
 	touch .pre_requisites
-	$(CC) $(CCFLAGS) -l$(MATH_LIB) $(MLXFLAGS)
+	$(CC) $(CCFLAGS) -l$(MATH_LIB) $(MLXFLAGS) $(O_PATHS) -o $(NAME)
 
 $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 	$(CC) $(CCFLAGS) $(INCLUSIONS) -c $< -o $@
@@ -165,3 +154,6 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
+
+debug:
+	@echo $(O_PATHS)
