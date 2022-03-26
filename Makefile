@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/26 17:46:14 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/26 18:19:53 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = fdf
 MATH_LIB = m
 
 FILES = \
-	fdf
+	fdf \
+	event_handlers \
+	error
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft
@@ -158,6 +160,9 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
+
+run: all
+	./fdf
 
 debug:
 	@echo $(O_PATHS)
