@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.c                                              :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/24 14:08:11 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/26 17:50:17 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include <unistd.h>
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+#include "fdf.h"
+#include "libft.h"
 
 int	deal_key(int key, void *param)
 {
-	ft_putchar('x');
-	// mlx_pixel_put(mlmx_ptr, win_ptr, );
+	(void) key;
+	(void) param;
+	ft_putnbr(key);
+	ft_putchar('\n');
+	// mlx_pixel_put(mlx_ptr, win_ptr, );
 	return (0);
 }
 

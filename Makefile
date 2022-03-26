@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/25 14:51:30 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/26 17:46:14 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,23 +109,27 @@ FOLDER_LIST = \
 H_FILES = fdf
 
 C_PATHS = $(addsuffix .c, $(addprefix $(SOURCES)/, $(FILES)))
-H_PATHS = $(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
-INCLUSIONS = $(foreach inc, $(INCLUDES), -I $(inc))
+H_PATHS = $(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES))) \
+	$(LIBFT_DIR)/includes/libft.h
+INCLUSIONS = $(foreach inc, $(INCLUDES), -I $(inc)) \
+	-I $(LIBFT_DIR)/includes
 O_PATHS = $(addsuffix .o, $(addprefix $(OBJECTS)/, $(FILES)))
 
 CC = clang
-CCFLAGS = -Wall -Wextra -Werror -Wconversion -O3
-MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
+CC_FLAGS = -Wall -Wextra -Werror -Wconversion -O3
+LIBFT_FLAGS = -lft -Llibft
+MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 .PHONY: all
 all: $(NAME)
 
 $(NAME): .pre_requisites $(O_PATHS) Makefile
 	touch .pre_requisites
-	$(CC) $(CCFLAGS) -l$(MATH_LIB) $(MLXFLAGS) $(O_PATHS) -o $(NAME)
+	$(CC) $(CC_FLAGS) -l$(MATH_LIB) $(MLX_FLAGS) $(LIBFT_FLAGS) \
+		$(O_PATHS) -o $(NAME)
 
 $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
-	$(CC) $(CCFLAGS) $(INCLUSIONS) -c $< -o $@
+	$(CC) $(CC_FLAGS) $(INCLUSIONS) -c $< -o $@
 
 .pre_requisites: $(LIBFT_NAME) $(FOLDER_LIST) $(H_PATHS) $(C_PATHS)
 
