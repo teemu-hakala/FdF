@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:19:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:24:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,18 @@ void	parse(char *filename, t_map *map)
 	if (fd < 0)
 		exit_msg("File open error!\n", EXIT_ERROR);
 	current_line_count = 0;
+printf("map->line_count: %llu\n", map->line_count);
 	while (1)
 	{
 		status = get_next_line(fd, &line);
 		if (status < 0)
 			exit_msg("get_next_line error", EXIT_ERROR);
+		else if (status == 0)
+			break ;
 		current_line_count += (uint64_t)status;
+		printf("%llu\n", current_line_count);
 		update_map_line_count(map, current_line_count);
-		break ;
+printf("map->line_count: %llu\n", map->line_count);
 	}
 	exit_msg("Parse error\n", EXIT_ERROR);
 }

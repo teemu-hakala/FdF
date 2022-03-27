@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:19:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:25:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	hook_all(t_mlx *mlx, t_fdf *fdf);
 void	parse(char *filename, t_map *map);
 
 void	init_req(t_mlx *mlx, t_fdf *fdf);
+void	init_map(t_map *map);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	draw(t_mlx *mlx, t_fdf *fdf);

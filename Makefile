@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 11:16:04 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 11:30:29 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,5 +170,6 @@ CMD_LINE_ARG = eval_tests/test_maps/42.fdf
 run: all
 	./fdf $(CMD_LINE_ARG)
 
-debug:
-	@echo $(O_PATHS)
+debug: CC_FLAGS := $(CC_FLAGS) -g
+debug: all
+	@echo "debug"
