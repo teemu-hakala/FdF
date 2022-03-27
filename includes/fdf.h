@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 08:52:07 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 09:19:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,20 @@ typedef struct s_fdf
 	t_color	color;
 }	t_fdf;
 
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	t_img	*img;
 }	t_mlx;
 
 # define EXIT_ERROR 1
@@ -72,5 +82,7 @@ enum e_key
 
 int		key_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
+
+void	init_req(t_mlx *mlx, t_fdf *fdf);
 
 #endif

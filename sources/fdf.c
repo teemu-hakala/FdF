@@ -6,25 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 09:06:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 09:18:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 	# include <stdio.h>
-void	init_req(t_mlx *mlx, t_fdf *fdf)
-{
-	mlx->mlx = mlx_init();
-	if (mlx->mlx == NULL)
-		exit_msg("Minilibx initialization failure (is NULL);", EXIT_ERROR);
-	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
-	if (mlx->win == NULL)
-		exit_msg("Window pointer is NULL!", EXIT_ERROR);
-	fdf->origin = (t_pt) { .row = WIN_HEIGHT / 2, .col = WIN_WIDTH / 2 };
-	fdf->color = COLOR_DEF;
-}
-
+	
 void	debug_function(t_mlx *mlx, t_fdf *fdf)
 {
 	int		i;
