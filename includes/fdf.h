@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 09:32:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 10:22:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 //# include <stdio.h> // man 3 perror; man 3 strerror
 //# include <math.h> // man 3 math
 
+	#	 include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
 
@@ -85,5 +86,8 @@ int		key_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
 
 void	init_req(t_mlx *mlx, t_fdf *fdf);
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void	draw(t_mlx *mlx, t_fdf *fdf);
 
 #endif
