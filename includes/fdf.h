@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 08:16:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 08:52:07 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define WIN_WIDTH 1280
 # define WIN_NAME "FdF-thakala-0"
 
+typedef enum e_color
+{
+	COLOR_DEF = 0xFFFFFF
+}	t_color;
+
 typedef struct s_point
 {
 	int		row;
@@ -35,6 +40,7 @@ typedef struct s_point
 typedef struct s_fdf
 {
 	t_pt	origin;
+	t_color	color;
 }	t_fdf;
 
 typedef struct s_mlx
@@ -65,5 +71,6 @@ enum e_key
 };
 
 int		key_handler(int key, void *param);
+void	hook_all(t_mlx *mlx, t_fdf *fdf);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/26 18:19:53 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 08:30:40 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ MATH_LIB = m
 FILES = \
 	fdf \
 	event_handlers \
-	error
+	error \
+	hooks
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft
