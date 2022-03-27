@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 10:56:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:19:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 	#	 include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
+# include "get_next_line.h"
 
 # define WIN_HEIGHT 960
 # define WIN_WIDTH 1280
@@ -75,7 +76,7 @@ typedef struct s_mlx
 # define EXIT_SUCCESS 0
 
 void	exit_msg(const char *msg, int val);
-int		close(void);
+int		close_success(void);
 
 enum e_event{
 	ON_KEYDOWN = 2,

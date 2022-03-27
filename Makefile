@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 10:47:30 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 11:16:04 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,8 @@ H_FILES = fdf
 
 C_PATHS = $(addsuffix .c, $(addprefix $(SOURCES)/, $(FILES)))
 H_PATHS = $(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES))) \
-	$(LIBFT_DIR)/includes/libft.h
+	$(LIBFT_DIR)/includes/libft.h \
+	$(LIBFT_DIR)/includes/get_next_line.h
 INCLUSIONS = $(foreach inc, $(INCLUDES), -I $(inc)) \
 	-I $(LIBFT_DIR)/includes
 O_PATHS = $(addsuffix .o, $(addprefix $(OBJECTS)/, $(FILES)))
