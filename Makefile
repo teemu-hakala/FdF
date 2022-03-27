@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 17:34:40 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 17:43:29 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -188,7 +188,7 @@ run: all
 
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: NAME := $(NAME)-debug
-debug: $(NAME) #debug-re-er $(NAME)
+debug: all-debug #debug-re-er $(NAME)
 #	@echo $(NAME)
 #	cat $(DEBUG_DETECTOR) > .pre_requisites
 #	@$(shell touch .pre_requisites)
