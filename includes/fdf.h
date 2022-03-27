@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:58:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 12:49:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@ typedef struct s_point
 }	t_pt;
 
 //# define INITIAL_LINE_COUNT 0
-# define INITIAL_LINE_LENGHT 554
+# define INITIAL_LINE_LENGHT 55
+
+typedef struct s_line
+{
+	int			*line;
+	uint64_t	len;
+}	t_line;
+
 
 typedef struct s_map
 {
-	int			**map;
+	t_line		*lines;
 	uint64_t	line_count;
 	uint64_t	*line_lengths;
 }	t_fdf_map;
@@ -95,6 +102,8 @@ enum e_key
 
 int		key_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
+
+void	validate_line(char *line);
 
 void	parse(char *filename, t_fdf_map *map);
 

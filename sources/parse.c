@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 12:29:30 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 12:47:17 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,23 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 	free(deletable_map);
 }
 
-static void	validate_line(char *line)
+static void	update_line_length(t_line *line)
 {
-	uint64_t	i;
-	int			invalidator_found;
-
-	i = 0;
-	invalidator_found = 0;
-	while (line[i] && !invalidator_found)
-	{
-		if (line[i] == '-')
-			i++;
-		else
-			invalidator_found = 1;
-		while (!invalidator_found)
-		{
-			if (!ft_isdigit(line[i]))
-				invalidator_found = 1;
-			i++;
-		}
-		if (line[i] == ' ')
-			i++;
-		else
-			invalidator_found = 1;
-		if (line[i] == '\0')
-			invalidator_found = 0;
-	}
-	if (invalidator_found)
-		exit_msg("Unknown character in map!\n", EXIT_ERROR);
+	line->len;
 }
 
 static void	add_line_to_map(t_fdf_map *map, char *line)
 {
-	ft_strsplit(line, ' ');
+	char		**numerals;
+	int			*points;
+	uint64_t	point_count;
+	uint64_t	i;
+
+	numerals = ft_strsplit(line, ' ');
+	while (*numerals)
+	{
+
+	}
 }
 
 void	parse(char *filename, t_fdf_map *map)
