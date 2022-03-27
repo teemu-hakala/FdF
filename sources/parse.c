@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:49:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 12:04:58 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 	if (map->map == NULL)
 		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
 	ft_memcpy(map->map, deletable_map, map->line_count);
-	map->line_count = map->line_count * 3 / 2;
+	map->line_count = current_line_count * 3 / 2;
 	free(deletable_map);
 }
 
@@ -51,5 +51,5 @@ printf("map->line_count: %llu\n", map->line_count);
 		update_map_line_count(map, current_line_count);
 printf("map->line_count: %llu\n", map->line_count);
 	}
-	exit_msg("Parse error\n", EXIT_ERROR);
+	//exit_msg("Parse error\n", EXIT_ERROR);
 }
