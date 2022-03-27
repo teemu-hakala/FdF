@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 15:39:10 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 17:34:40 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,11 +132,13 @@ MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 all: CC_FLAGS := $(CC_FLAGS) -O3
 all: $(NAME)
 
+all-debug: $(NAME)
+
 $(NAME): .pre_requisites $(O_PATHS) Makefile
 	touch .pre_requisites
 	$(CC) $(CC_FLAGS) -l$(MATH_LIB) $(MLX_FLAGS) $(LIBFT_FLAGS) \
 		$(O_PATHS) -o $(NAME)
-	@cat $(DEFAULT_DETECTOR) > .pre_requisites
+#	@cat $(DEFAULT_DETECTOR) > .pre_requisites
 #	@echo -n "default" > .pre_requisites
 #	$(shell diff .pre_requisites)
 
@@ -175,17 +177,19 @@ CMD_LINE_ARG = eval_tests/test_maps/42.fdf
 run: all
 	./fdf $(CMD_LINE_ARG)
 
-DEBUG_DETECTOR = \
+#DEBUG_DETECTOR = \
 	eval_tests/scripts/pre_requisite_detectors/build-debug-text.c.test
-DEFAULT_DETECTOR = \
+#DEFAULT_DETECTOR = \
 	eval_tests/scripts/pre_requisite_detectors/build-default-text.c.test
 
-debug-re-er:
-	sleep 2
-	$(shell cat $(DEBUG_DETECTOR) > .pre_requisites)
+#debug-re-er:
+#	sleep 2
+#	$(shell cat $(DEBUG_DETECTOR) > .pre_requisites)
 
 debug: CC_FLAGS := $(CC_FLAGS) -g
-debug: debug-re-er $(NAME)
+debug: NAME := $(NAME)-debug
+debug: $(NAME) #debug-re-er $(NAME)
+#	@echo $(NAME)
 #	cat $(DEBUG_DETECTOR) > .pre_requisites
 #	@$(shell touch .pre_requisites)
 #	@$(shell echo "debug" > .pre_requisites)
