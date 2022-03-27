@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 17:43:29 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 18:45:04 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,6 +175,8 @@ re: fclean all
 
 CMD_LINE_ARG = eval_tests/test_maps/42.fdf
 run: all
+	-norminette
+	@echo "\033[0;31mWARNING: norminette errors possibly IGNORED\033[0m\n"
 	./fdf $(CMD_LINE_ARG)
 
 #DEBUG_DETECTOR = \
