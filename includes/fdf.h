@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 10:45:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 10:53:14 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,18 @@ typedef struct s_point
 }	t_pt;
 
 # define INITIAL_LINE_COUNT 1
+
+typedef struct s_map
+{
+	int			**map;
+	uint64_t	line_count;
+	uint64_t	*line_lengths;
+}	t_map;
 typedef struct s_fdf
 {
 	t_pt		origin;
 	t_color		color;
-	int			**map;
-	uint64_t	line_count;
-	uint64_t	*line_lengths;
+	t_map		map;
 }	t_fdf;
 
 typedef struct s_image
@@ -89,7 +94,7 @@ enum e_key
 int		key_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
 
-int		**parse(char *filename, t_fdf *fdf);
+void	parse(char *filename, t_map *map);
 
 void	init_req(t_mlx *mlx, t_fdf *fdf);
 
