@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:24:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:37:34 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	update_map_line_count(t_map *map, uint64_t current_line_count)
 		return ;
 	deletable_map = map->map;
 	map->map = (int **)malloc(sizeof(int) * (current_line_count + 1));
+	if (map->map == NULL)
+		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
 	ft_memcpy(map->map, deletable_map, map->line_count);
 	map->line_count = map->line_count * 3 / 2;
 	free(deletable_map);

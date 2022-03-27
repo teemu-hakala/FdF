@@ -1,0 +1,21 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "FdF",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/FdF-thakala-0/fdf",
+			"args": ["${workspaceFolder}/FdF-thakala-0/eval_tests/test_maps/42.fdf"],
+			"stopAtEntry": true,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			"preLaunchTask": "debug"
+		}
+	]
+}
