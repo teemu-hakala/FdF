@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 12:47:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 14:14:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,45 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 		return ;
 	deletable_map = map->map;
 	temp_line_count = current_line_count * 3 / 2;
-	map->map = (int **)malloc(sizeof(int *) * (temp_line_count + 1));
-	if (map->map == NULL)
+	// map->map = (int **)malloc(sizeof(int *) * (temp_line_count + 1));
+	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_line_count + 1));
+	if (map->lines == NULL)
 		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
-	ft_memcpy(map->map, deletable_map, map->line_count);
+	ft_memcpy(map->map, deletable_map, map->line_count * sizeof(t_line));
 	map->line_count = temp_line_count;
 	free(deletable_map);
 }
 
-static void	update_line_length(t_line *line)
+static void	update_line_length(t_line *line, uint64_t current_point_count)
 {
-	line->len;
+	int			*deletable_line;
+	uint64_t	temp_point_count;
+
+	if (line->len >= current_point_count)
+		return ;
+	deletable_line = line->line;
+	temp_point_count = temp_point_count * 3 / 2;
+	line->line = (int *)malloc(sizeof(int) * (temp_point_count));
+	ft_memcpy(line->line, deletable_line, sizeof(int) * line->len);
+	line->line = temp_point_count;
+	free(deletable_line);
 }
 
-static void	add_line_to_map(t_fdf_map *map, char *line)
+static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
 	char		**numerals;
-	int			*points;
-	uint64_t	point_count;
-	uint64_t	i;
+	t_line		line;
+	uint64_t	numeral;
+	int			temp_height;
 
-	numerals = ft_strsplit(line, ' ');
-	while (*numerals)
+	numerals = ft_strsplit(line_string, ' ');
+	line.len = 0;
+	numeral = 0;
+	while (numerals[numeral])
 	{
-
+		temp_height = ft_atoi(*numerals);
+		update_line_length(&line, numeral);
+		numeral++;
 	}
 }
 
