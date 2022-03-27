@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 14:14:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 14:18:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 {
-	int			**deletable_map;
+	t_line		*deletable_lines;
 	uint64_t	temp_line_count;
 
 	if (map->line_count >= current_line_count)
 		return ;
-	deletable_map = map->map;
+	deletable_lines = map->lines;
 	temp_line_count = current_line_count * 3 / 2;
 	// map->map = (int **)malloc(sizeof(int *) * (temp_line_count + 1));
 	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_line_count + 1));
 	if (map->lines == NULL)
 		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
-	ft_memcpy(map->map, deletable_map, map->line_count * sizeof(t_line));
+	ft_memcpy(map->lines, deletable_lines, map->line_count * sizeof(t_line));
 	map->line_count = temp_line_count;
-	free(deletable_map);
+	free(deletable_lines);
 }
 
 static void	update_line_length(t_line *line, uint64_t current_point_count)
@@ -38,10 +38,10 @@ static void	update_line_length(t_line *line, uint64_t current_point_count)
 	if (line->len >= current_point_count)
 		return ;
 	deletable_line = line->line;
-	temp_point_count = temp_point_count * 3 / 2;
+	temp_point_count = current_point_count * 3 / 2;
 	line->line = (int *)malloc(sizeof(int) * (temp_point_count));
 	ft_memcpy(line->line, deletable_line, sizeof(int) * line->len);
-	line->line = temp_point_count;
+	line->len = temp_point_count;
 	free(deletable_line);
 }
 
@@ -61,6 +61,7 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 		update_line_length(&line, numeral);
 		numeral++;
 	}
+	(void) map;
 }
 
 void	parse(char *filename, t_fdf_map *map)

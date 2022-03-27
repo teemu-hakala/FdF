@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 12:37:46 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 14:29:20 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,6 +136,8 @@ $(NAME): .pre_requisites $(O_PATHS) Makefile
 	touch .pre_requisites
 	$(CC) $(CC_FLAGS) -l$(MATH_LIB) $(MLX_FLAGS) $(LIBFT_FLAGS) \
 		$(O_PATHS) -o $(NAME)
+#	@echo -n "default" > .pre_requisites
+#	$(shell diff .pre_requisites)
 
 $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 	$(CC) $(CC_FLAGS) $(INCLUSIONS) -c $< -o $@
@@ -174,4 +176,5 @@ run: all
 
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: $(NAME)
-	@echo "debug"
+#	@$(shell touch .pre_requisites)
+#	@$(shell echo "debug" > .pre_requisites)

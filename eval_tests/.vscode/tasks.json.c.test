@@ -6,50 +6,59 @@
 // ${fileExtname} the current opened file's extension
 // ${cwd} the task runner's current working directory on startup
 {
-    "version": "0.1.0",
-    "command": "bash",
-    "isShellCommand": true,
-    "showOutput": "always",
-    "options": {
-        "cwd": "${workspaceRoot}/FdF-thakala-0"
-    },
+	"version": "2.0.0",
+	"command": "bash",
+	//"showOutput": "always",
+	"options": {
+		"cwd": "${workspaceRoot}/FdF-thakala-0"
+	},
 	"args": [
-        "-c"
-    ],
-    "tasks": [
-        {
-            "taskName": "run",
-            "suppressTaskName": true,
-            "isBuildCommand": true,
-            "args": ["make run"]
-        },
-        {
-            "taskName": "debug",
-            "suppressTaskName": true,
-            "isBuildCommand": true,
-            "args": ["make debug"]
-        },
-        {
-            "taskName": "build",
-            "suppressTaskName": true,
-            "isBuildCommand": true,
-            "args": ["make build"]
-        },
-        {
-            "taskName": "test",
-            "suppressTaskName": true,
-            "isTestCommand": true,
-            "args": ["make test"]
-        },
-        {
-            "taskName": "deploy",
-            "suppressTaskName": true,
-            "args": ["make deploy"]
-        },
-        {
-            "taskName": "help",
-            "suppressTaskName": true,
-            "args": ["make help"]
-        }
-    ]
+		"-c"
+	],
+	"tasks": [
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "run",
+			"group": "build",
+			"args": ["make run"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "debug",
+			"group": "test",
+			"args": ["make debug"],
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "build",
+			"group": "build",
+			"args": ["make build"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "test",
+			"group": "test",
+			"args": ["make test"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "deploy",
+			"args": ["make deploy"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "help",
+			"args": ["make help"]
+		},
+		{
+			"label": "Build",
+			"dependsOn": ["Client Build", "Server Build"]
+		}
+	]
 }
