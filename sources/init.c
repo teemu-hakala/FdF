@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:25:07 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:57:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ static void	init_fdf(t_fdf *fdf)
 	fdf->color = COLOR_DEF;
 }
 
-void	init_map(t_map *map)
+void	init_map(t_fdf_map *map)
 {
-	map->line_count = (uint64_t)INITIAL_LINE_COUNT;
+	(void) map;
+	//map->line_count = (uint64_t)INITIAL_LINE_COUNT;
+	//map->map = (int **)malloc(sizeof(int *) * (map->line_count + 1));
 }
 
 void	init_req(t_mlx *mlx, t_fdf *fdf)

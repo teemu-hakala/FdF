@@ -6,13 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:45:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 11:49:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	update_map_line_count(t_map *map, uint64_t current_line_count)
+static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 {
 	int		**deletable_map;
 
@@ -27,7 +27,7 @@ static void	update_map_line_count(t_map *map, uint64_t current_line_count)
 	free(deletable_map);
 }
 
-void	parse(char *filename, t_map *map)
+void	parse(char *filename, t_fdf_map *map)
 {
 	int			fd;
 	char		*line;

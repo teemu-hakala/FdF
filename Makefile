@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 11:30:29 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 11:56:01 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,11 +123,12 @@ INCLUSIONS = $(foreach inc, $(INCLUDES), -I $(inc)) \
 O_PATHS = $(addsuffix .o, $(addprefix $(OBJECTS)/, $(FILES)))
 
 CC = clang
-CC_FLAGS = -Wall -Wextra -Werror -Wconversion -O3
+CC_FLAGS = -Wall -Wextra -Werror -Wconversion
 LIBFT_FLAGS = -lft -Llibft
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 .PHONY: all
+all: CC_FLAGS := $(CC_FLAGS) -O3
 all: $(NAME)
 
 $(NAME): .pre_requisites $(O_PATHS) Makefile
@@ -171,5 +172,5 @@ run: all
 	./fdf $(CMD_LINE_ARG)
 
 debug: CC_FLAGS := $(CC_FLAGS) -g
-debug: all
+debug: $(NAME)
 	@echo "debug"
