@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 09:18:28 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/27 10:47:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ FILES = \
 	error \
 	hooks \
 	draw \
-	init
+	init \
+	parse
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft
@@ -164,8 +165,9 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
+CMD_LINE_ARG = eval_tests/test_maps/42.fdf
 run: all
-	./fdf
+	./fdf $(CMD_LINE_ARG)
 
 debug:
 	@echo $(O_PATHS)

@@ -6,14 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 10:22:18 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 10:45:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-//# include <fcntl.h> // man 2 open
+# include <fcntl.h> // man 2 open
 //# include <unistd.h> // man 2 read; man 2 write; man 2 close
 # include <stdlib.h> // man 3 malloc; man 3 free; man 3 exit
 //# include <stdio.h> // man 3 perror; man 3 strerror
@@ -38,10 +38,14 @@ typedef struct s_point
 	int		col;
 }	t_pt;
 
+# define INITIAL_LINE_COUNT 1
 typedef struct s_fdf
 {
-	t_pt	origin;
-	t_color	color;
+	t_pt		origin;
+	t_color		color;
+	int			**map;
+	uint64_t	line_count;
+	uint64_t	*line_lengths;
 }	t_fdf;
 
 typedef struct s_image
@@ -84,6 +88,8 @@ enum e_key
 
 int		key_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
+
+int		**parse(char *filename, t_fdf *fdf);
 
 void	init_req(t_mlx *mlx, t_fdf *fdf);
 
