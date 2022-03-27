@@ -1,0 +1,78 @@
+// Makefile
+// ${workspaceRoot} the path of the folder opened in VS Code
+// ${file} the current opened file
+// ${fileBasename} the current opened file's basename
+// ${fileDirname} the current opened file's dirname
+// ${fileExtname} the current opened file's extension
+// ${cwd} the task runner's current working directory on startup
+{
+	"version": "2.0.0",
+	"command": "bash",
+	//"showOutput": "always",
+	"options": {
+		"cwd": "${workspaceRoot}/FdF-thakala-0"
+	},
+	"args": [
+		"-c"
+	],
+	"tasks": [
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "run",
+			"group": "build",
+			"args": ["make run"]
+		},
+		{
+			"command": "bash",
+			"type": "process",
+			"label": "debug",
+			"group": "test",
+			"args": ["make debug"],
+			"dependsOn": "remake_with_debug_flag_if_necessary"
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "build",
+			"group": "build",
+			"args": ["make build"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "test",
+			"group": "test",
+			"args": ["make test"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "deploy",
+			"args": ["make deploy"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "help",
+			"args": ["make help"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "help",
+			"args": ["make help"]
+		},
+		{
+			"command": "bash",
+			"type": "shell",
+			"label": "remake_with_debug_flag_if_necessary",
+			"group": "test",
+			"args": ["./debug_remaker.sh"]
+		},
+		{
+			"label": "Build",
+			"dependsOn": ["Client Build", "Server Build"]
+		}
+	]
+}
