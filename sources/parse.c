@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 12:09:58 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 12:25:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,39 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 	free(deletable_map);
 }
 
+static void	validate_line(char *line)
+{
+	uint64_t	i;
+	int			invalidator_found;
+
+	i = 0;
+	invalidator_found = 0;
+	while (line[i] && !invalidator_found)
+	{
+		if (line[i] == '-')
+			i++;
+		else
+			invalidator_found = 1;
+		while (!invalidator_found)
+		{
+			if (!ft_isdigit(line[i]))
+				invalidator_found = 1;
+			i++;
+		}
+		if (line[i] == ' ')
+			i++;
+		else
+			invalidator_found = 1;
+		if (line[i] == '\0')
+			invalidator_found = 0;
+	}
+}
+
+static void	add_line_to_map(t_fdf_map *map, char *line)
+{
+	ft_strsplit(line, ' ');
+}
+
 void	parse(char *filename, t_fdf_map *map)
 {
 	int			fd;
@@ -44,13 +77,16 @@ printf("map->line_count: %llu\n", map->line_count);
 	while (1)
 	{
 		status = get_next_line(fd, &line);
-		if (status < 0)
+		if (status < 0 || (status > 0 && line == NULL))
 			exit_msg("get_next_line error", EXIT_ERROR);
 		else if (status == 0)
 			break ;
 		current_line_count += (uint64_t)status;
 		printf("%llu\n", current_line_count);
 		update_map_line_count(map, current_line_count);
+		validate_line(line);
+		add_line_to_map(map, line);
+		free(line);
 printf("map->line_count: %llu\n", map->line_count);
 	}
 	//exit_msg("Parse error\n", EXIT_ERROR);
