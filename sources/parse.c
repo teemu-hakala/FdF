@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 12:25:41 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 12:29:30 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void	validate_line(char *line)
 		if (line[i] == '\0')
 			invalidator_found = 0;
 	}
+	if (invalidator_found)
+		exit_msg("Unknown character in map!\n", EXIT_ERROR);
 }
 
 static void	add_line_to_map(t_fdf_map *map, char *line)
