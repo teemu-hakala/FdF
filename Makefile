@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/27 18:45:04 by thakala          ###   ########.fr        #
+#    Updated: 2022/03/28 19:51:34 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,9 +132,11 @@ MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 all: CC_FLAGS := $(CC_FLAGS) -O3
 all: $(NAME)
 
+.PHONY: all-debug
 all-debug: $(NAME)
 
 $(NAME): .pre_requisites $(O_PATHS) Makefile
+#	echo $(NAME)
 	touch .pre_requisites
 	$(CC) $(CC_FLAGS) -l$(MATH_LIB) $(MLX_FLAGS) $(LIBFT_FLAGS) \
 		$(O_PATHS) -o $(NAME)
@@ -188,6 +190,7 @@ run: all
 #	sleep 2
 #	$(shell cat $(DEBUG_DETECTOR) > .pre_requisites)
 
+.PHONY: debug
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: NAME := $(NAME)-debug
 debug: all-debug #debug-re-er $(NAME)

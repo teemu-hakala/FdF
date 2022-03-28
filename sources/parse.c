@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/28 19:22:27 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/28 19:29:00 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 	temp_size = current_line_count * 3 / 2;
 	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_size + 1));
 	if (map->lines == NULL)
-		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
+		exit_msg("map->lines mallocation error!\n", EXIT_ERROR);
 	ft_memcpy(map->lines, deletable_lines, map->size * sizeof(t_line));
 	map->size = temp_size;
 	free(deletable_lines);
@@ -42,7 +42,7 @@ static void	update_line_length(t_line *line, uint64_t current_point_count)
 	temp_size = current_point_count * 3 / 2;
 	line->line = (int *)malloc(sizeof(int) * (temp_size + 1));
 	if (line->line == NULL)
-		exit_msg("map->map mallocation error!\n", EXIT_ERROR);
+		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
 	ft_memcpy(line->line, deletable_line, line->size * sizeof(int));
 	line->size = temp_size;
 	free(deletable_line);
@@ -64,7 +64,7 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 		update_line_length(&line, numeral);
 		numeral++;
 	}
-	(void) map;
+	map->lines[map->line_count] = line;
 }
 
 void	parse(char *filename, t_fdf_map *map)
