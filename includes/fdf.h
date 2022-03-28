@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 19:46:09 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/28 18:05:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_map
 	t_line		*lines;
 	uint64_t	line_count;
 	uint64_t	size;
-	uint64_t	*line_lengths;
+	// int64_t	*line_lengths;
 }	t_fdf_map;
 
 typedef struct s_fdf

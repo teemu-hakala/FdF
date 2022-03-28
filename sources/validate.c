@@ -6,13 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:37:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 19:43:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/28 18:14:08 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* Validates also file with minus sign at the end. */
+/* Validates also file with minus sign at the end.
+	When ft_atoi returns 0, check if the digit is actually zero. */
 
 void	validate_line(char *line)
 {
