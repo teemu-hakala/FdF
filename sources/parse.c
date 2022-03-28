@@ -6,12 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 14:18:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:45:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+
+/* Use ->size instead of ->len for the new size of malloc. */
 static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 {
 	t_line		*deletable_lines;
@@ -30,6 +32,7 @@ static void	update_map_line_count(t_fdf_map *map, uint64_t current_line_count)
 	free(deletable_lines);
 }
 
+/* Use ->size instead of ->len for the new size of malloc. */
 static void	update_line_length(t_line *line, uint64_t current_point_count)
 {
 	int			*deletable_line;
@@ -84,7 +87,7 @@ printf("map->line_count: %llu\n", map->line_count);
 		else if (status == 0)
 			break ;
 		current_line_count += (uint64_t)status;
-		printf("%llu\n", current_line_count);
+printf("%llu\n", current_line_count);
 		update_map_line_count(map, current_line_count);
 		validate_line(line);
 		add_line_to_map(map, line);

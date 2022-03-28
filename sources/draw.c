@@ -6,11 +6,15 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 10:27:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:55:26 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/*
+	<placeholder for a definitive comment>
+*/
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {

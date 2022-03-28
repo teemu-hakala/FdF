@@ -6,11 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:37:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 12:42:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:43:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/* Validates also file with minus sign at the end. */
 
 void	validate_line(char *line)
 {

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 14:02:21 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:46:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ typedef struct s_point
 typedef struct s_line
 {
 	int			*line;
-	uint64_t	len;
+	uint64_t	point_count;
+	uint64_t	size;
 }	t_line;
 
 typedef struct s_map
 {
 	t_line		*lines;
 	uint64_t	line_count;
+	uint64_t	size;
 	uint64_t	*line_lengths;
 }	t_fdf_map;
 
