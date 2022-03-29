@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:37:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/28 18:14:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/29 19:16:47 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ void	validate_line(char *line)
 		{
 			if (!ft_isdigit(line[i]))
 				invalidator_found = 1;
-			i++;
+			i += !invalidator_found;
 		}
-		if (line[i] == ' ')
+		while (line[i] == ' ')
 			i++;
-		else
-			invalidator_found = 1;
-		if (line[i] == '\0')
+		if (ft_isdigit(line[i]) || line[i] == '\0')
 			invalidator_found = 0;
 	}
 	if (invalidator_found)
