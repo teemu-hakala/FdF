@@ -1,5 +1,6 @@
 .pre_requisites
 objects/
 fdf
+fdf.dSYM/
 fdf-debug
 fdf-debug.dSYM/

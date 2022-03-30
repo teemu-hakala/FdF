@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/29 20:24:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:38:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	debug_printer(t_fdf_map *map)
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {
 	debug_printer(&fdf->map);
-	(void) fdf;
 	init_img(mlx);
 	my_mlx_pixel_put(&mlx->img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);

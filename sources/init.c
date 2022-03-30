@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:57:28 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:04:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void	init_req(t_mlx *mlx, t_fdf *fdf)
 {
 	init_mlx(mlx);
 	init_fdf(fdf);
-	init_map(&fdf->map);
+	//init_map(&fdf->map);
 }

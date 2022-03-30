@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 13:10:09 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:16:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 
 	ft_bzero(&line, sizeof(t_line));
 	numerals = ft_strsplit(line_string, ' ');
+	if (numerals == NULL)
+		exit_msg("ft_strsplit return was NULL!\n", EXIT_ERROR);
 	numeral = 0;
 	while (numerals[numeral])
 	{
@@ -118,7 +120,9 @@ void	parse(char *filename, t_fdf_map *map)
 		validate_line(line);
 		add_line_to_map(map, line);
 		free(line);
-		map->line_count += (uint64_t)status;
+		map->line_count += (uint64_t) !!status;
 	}
+	if (close(fd) < 0)
+		exit_msg("file descriptor close(2) call error!\n", EXIT_ERROR);
 	//exit_msg("Parse error\n", EXIT_ERROR);
 }
