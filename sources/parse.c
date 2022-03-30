@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 18:21:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:44:34 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	update_map_line_count(t_fdf_map *map)
 	if (map->size > map->line_count)
 		return ;
 	deletable_lines = map->lines;
-	temp_size = map->line_count * 3 / 2 + !map->line_count;
+	temp_size = map->line_count * 3 / 2 + 1;//!map->line_count;
 	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_size + 1));
 	if (map->lines == NULL)
 		exit_msg("map->lines mallocation error!\n", EXIT_ERROR);
@@ -40,15 +40,11 @@ static void	update_line_length(t_line *line, uint64_t current_point_count)
 	if (line->size > current_point_count)
 		return ;
 	deletable_line = line->line;
-// printf("%llu (current_point_count)\n", current_point_count);
-	temp_size = current_point_count * 3 / 2 + !current_point_count;
-// printf("%llu (temp_count)\n", temp_size);
-	line->line = (int *)malloc(sizeof(int) * (temp_size + 1));
-ft_bzero(line->line, sizeof(int) * (temp_size + 1));
+	temp_size = current_point_count * 3 / 2 + 1;//!current_point_count;
+	line->line = (int *)malloc(sizeof(int) * temp_size); // removed + 1
 	if (line->line == NULL)
 		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
 	if (deletable_line != NULL)
-// printf("%llu (line->size)\n", line->size);
 		ft_memcpy(line->line, deletable_line, line->size * sizeof(int));
 	line->size = temp_size;
 	free(deletable_line);
@@ -56,7 +52,6 @@ ft_bzero(line->line, sizeof(int) * (temp_size + 1));
 
 static void	debug_print_line(t_line *line)
 {
-// printf("line->line in debug_print_line %p\n", line->line);
 	for (uint64_t point = 0; point < line->point_count; point++)
 	{
 		printf("%d ", line->line[point]);
@@ -96,29 +91,12 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 	while (numerals[numeral])
 	{
 		temp_height = ft_atoi(numerals[numeral]);
-		if (numeral == 1)
-		{
-printf("temp_height:\n");
-			ft_putnbr(temp_height);
-		}
-// printf("%d ", temp_height);
 		update_line_length(&line, numeral);
-// printf("line->line in add_line_to_map %p\n", line.line);
 		line.line[numeral] = temp_height;
 		numeral++;
 	}
-printf("line.line[i]: -->\n");
-ft_putnbr(line.line[1]);
-printf("\n");
 	line.point_count = numeral;
-printf("&line before assignment: \n");
-	debug_print_line(&line);
 	map->lines[map->line_count] = line;
-//printf("map->lines[map->line_count]: %p\n", map->lines[map->line_count].line);
-printf("&line after assignment: \n");
-	debug_print_line(&line);
-printf("&map->lines[map->line_count]: \n");
-	debug_print_line(&map->lines[map->line_count]);
 	numerals = free_splits(numerals);
 }
 
