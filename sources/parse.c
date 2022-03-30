@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 17:16:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:37:30 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static void	*free_splits(char **strings)
 	return (NULL);
 }
 
+/* line.point_count as numeral */
+
 static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
 	char		**numerals;
@@ -89,13 +91,15 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 	while (numerals[numeral])
 	{
 		temp_height = ft_atoi(numerals[numeral]);
+printf("%d ", temp_height);
 		update_line_length(&line, numeral);
 		line.line[numeral] = temp_height;
 		numeral++;
 	}
+printf("\n");
 	line.point_count = numeral;
 	map->lines[map->line_count] = line;
-printf("map->lines[map->line_count]: %p\n", map->lines[map->line_count].line);
+//printf("map->lines[map->line_count]: %p\n", map->lines[map->line_count].line);
 	debug_print_line(&line);
 	numerals = free_splits(numerals);
 }

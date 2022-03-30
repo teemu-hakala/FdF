@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 13:38:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:28:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,23 @@ void	init_img(t_mlx *mlx)
 		&mlx->img.line_length, &mlx->img.endian);
 }
 
-void	debug_printer(t_fdf_map *map)
-{
-	for (uint64_t line = 0; line < map->line_count; line++)
-	{
-		for (uint64_t point = 0; point < map->lines[line].point_count; point++)
-		{
-			printf("%d ", map->lines[line].line[point]);
-		}
-		printf("\n");
-	}
-	printf("\n");
-}
+// void	debug_printer(t_fdf_map *map)
+// {
+// 	for (uint64_t line = 0; line < map->line_count; line++)
+// 	{
+// 		for (uint64_t point = 0; point < map->lines[line].point_count; point++)
+// 		{
+// 			printf("%d ", map->lines[line].line[point]);
+// 		}
+// 		printf("\n");
+// 	}
+// 	printf("\n");
+// }
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {
-	debug_printer(&fdf->map);
+	// debug_printer(&fdf->map);
+	(void) fdf;
 	init_img(mlx);
 	my_mlx_pixel_put(&mlx->img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
