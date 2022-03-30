@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/29 20:41:48 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 13:10:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,21 @@ static void	debug_print_line(t_line *line)
 	printf("\n");
 }
 
+static void	*free_splits(char **strings)
+{
+	char	**string_splits;
+	char	*temp_string;
+
+	string_splits = strings;
+	while (*strings)
+	{
+		temp_string = *strings++;
+		free(temp_string);
+	}
+	free(string_splits);
+	return (NULL);
+}
+
 static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
 	char		**numerals;
@@ -78,7 +93,9 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 	}
 	line.point_count = numeral;
 	map->lines[map->line_count] = line;
+printf("map->lines[map->line_count]: %p\n", map->lines[map->line_count].line);
 	debug_print_line(&line);
+	numerals = free_splits(numerals);
 }
 
 void	parse(char *filename, t_fdf_map *map)

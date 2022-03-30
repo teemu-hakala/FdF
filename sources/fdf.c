@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/27 11:49:28 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/30 12:55:14 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	main(int argc, char **argv)
 	static t_mlx	mlx;
 	static t_fdf	fdf;
 
-	(void) argc;
-	(void) argv;
 	if (argc != 2)
 		exit_msg("usage: ./fdf <filename>.fdf\n", EXIT_ERROR);
 	init_map(&fdf.map);
