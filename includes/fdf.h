@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:13:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:28:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,9 @@ typedef enum e_color
 
 typedef struct s_point
 {
-	uint64_t	row;
-	uint64_t	col;
+	int		row;
+	int		col;
 }	t_pt;
-
-//# define INITIAL_LINE_COUNT 0
-# define INITIAL_LINE_LENGHT 55
 
 typedef struct s_line
 {

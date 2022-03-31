@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:18:18 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:23:19 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	init_img(t_mlx *mlx)
 	printf("\n");
 } */
 
-int	get_ordinate(uint64_t ordinate, t_fdf *fdf)
+int	get_ordinate(int ordinate, t_fdf *fdf)
 {
 	return (ordinate * fdf->zoom + fdf->offset.row);
 }
 
-int	get_abscissa(uint64_t abscissa, t_fdf *fdf)
+int	get_abscissa(int abscissa, t_fdf *fdf)
 {
 	return (abscissa * fdf->zoom + fdf->offset.col);
 }
@@ -57,7 +57,7 @@ int	get_abscissa(uint64_t abscissa, t_fdf *fdf)
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point, t_fdf *fdf, t_img *image)
 {
-	my_mlx_pixel_put(image, get_oordinate(point->row, fdf), \
+	my_mlx_pixel_put(image, get_ordinate(point->row, fdf), \
 		get_abscissa(point->col, fdf), 0x00FFFFFF);
 	//fdf->map.lines[point->row].line[point->col];
 	return (RETURN_SUCCESS);
@@ -70,15 +70,16 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 	// debug_printer(&fdf->map);
 	init_img(mlx);
 	point.row = 0;
-	while (point.row < fdf->map.line_count)
+	while ((uint64_t)point.row < fdf->map.line_count)
 	{
 		point.col = 0;
-		while (point.col < fdf->map.lines[point.row].point_count)
+		while ((uint64_t)point.col < fdf->map.lines[point.row].point_count)
 		{
-			if (point.col + 1 < fdf->map.lines[point.row].point_count)
+			draw_line(&point, fdf, &mlx->img);
+			if ((uint64_t)point.col + 1 < fdf->map.lines[point.row].point_count)
 				draw_line(&(t_pt){.row = point.row, .col = point.col + 1}, \
 					fdf, &mlx->img);
-			if (point.row + 1 < fdf->map.line_count)
+			if ((uint64_t)point.row + 1 < fdf->map.line_count)
 				draw_line(&(t_pt){.row = point.row + 1, .col = point.col}, \
 					fdf, &mlx->img);
 			point.col++;
