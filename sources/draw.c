@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:05:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:18:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,23 @@ void	init_img(t_mlx *mlx)
 	printf("\n");
 } */
 
+int	get_ordinate(uint64_t ordinate, t_fdf *fdf)
+{
+	return (ordinate * fdf->zoom + fdf->offset.row);
+}
+
+int	get_abscissa(uint64_t abscissa, t_fdf *fdf)
+{
+	return (abscissa * fdf->zoom + fdf->offset.col);
+}
+
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point, t_fdf *fdf, t_img *image)
 {
-	my_mlx_pixel_put(image, point->row, point->col, 0x00FF0000);
-	fdf->map.lines[point->row].line[point->col];
+	my_mlx_pixel_put(image, get_oordinate(point->row, fdf), \
+		get_abscissa(point->col, fdf), 0x00FFFFFF);
+	//fdf->map.lines[point->row].line[point->col];
+	return (RETURN_SUCCESS);
 }
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
@@ -73,7 +85,6 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 		}
 		point.row++;
 	}
-	my_mlx_pixel_put(&mlx->img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
 }

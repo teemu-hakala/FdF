@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 08:50:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:13:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_fdf
 {
 	t_pt		origin;
 	t_color		color;
+	t_pt		offset;
+	int			zoom;
 	t_fdf_map	map;
 }	t_fdf;
 
@@ -80,6 +82,9 @@ typedef struct s_mlx
 	void	*win;
 	t_img	img;
 }	t_mlx;
+
+# define RETURN_SUCCESS 1
+# define RETURN_ERROR 0
 
 # define EXIT_ERROR 1
 # define EXIT_SUCCESS 0
@@ -111,6 +116,8 @@ void	parse(char *filename, t_fdf_map *map);
 
 void	init_req(t_mlx *mlx, t_fdf *fdf);
 void	init_map(t_fdf_map *map);
+
+# define SPACING 10
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	draw(t_mlx *mlx, t_fdf *fdf);

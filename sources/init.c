@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 17:04:02 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:13:48 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	init_fdf(t_fdf *fdf)
 {
 	fdf->origin = (t_pt){.row = WIN_HEIGHT / 2, .col = WIN_WIDTH / 2};
 	fdf->color = COLOR_DEF;
+	fdf->zoom = 10;
+	fdf->offset = (t_pt){.row = WIN_HEIGHT / 8, .col = WIN_WIDTH / 8};
 }
 
 void	init_map(t_fdf_map *map)
