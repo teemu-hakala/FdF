@@ -6,13 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 12:55:14 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 08:44:11 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	debug_function(t_mlx *mlx, t_fdf *fdf)
+/*void	debug_function(t_mlx *mlx, t_fdf *fdf)
 {
 	int		i;
 
@@ -24,7 +24,7 @@ printf("%d %d %d\n", fdf->origin.col + i, fdf->origin.row + i, (int)fdf->color);
 			fdf->origin.col + i, fdf->origin.row + i, (int)fdf->color);
 		i++;
 	}
-}
+}*/
 
 int	main(int argc, char **argv)
 {

@@ -6,13 +6,12 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 08:40:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 08:43:19 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* Use ->size instead of ->len for the new size of malloc. */
 static void	update_map_line_count(t_fdf_map *map)
 {
 	t_line		*deletable_lines;
@@ -21,7 +20,7 @@ static void	update_map_line_count(t_fdf_map *map)
 	if (map->size > map->line_count)
 		return ;
 	deletable_lines = map->lines;
-	temp_size = map->line_count * 3 / 2 + 1;//!map->line_count;
+	temp_size = map->line_count * 3 / 2 + 1;
 	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_size + 1));
 	if (map->lines == NULL)
 		exit_msg("map->lines mallocation error!\n", EXIT_ERROR);
@@ -31,7 +30,6 @@ static void	update_map_line_count(t_fdf_map *map)
 	free(deletable_lines);
 }
 
-/* Use ->size instead of ->len for the new size of malloc. */
 static void	update_line_length(t_line *line)
 {
 	int			*deletable_line;
@@ -40,7 +38,7 @@ static void	update_line_length(t_line *line)
 	if (line->size > line->point_count)
 		return ;
 	deletable_line = line->line;
-	temp_size = line->point_count * 3 / 2 + 1;//!line->point_count;
+	temp_size = line->point_count * 3 / 2 + 1;
 	line->line = (int *)malloc(sizeof(int) * temp_size); // removed + 1
 	if (line->line == NULL)
 		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
@@ -50,14 +48,14 @@ static void	update_line_length(t_line *line)
 	free(deletable_line);
 }
 
-static void	debug_print_line(t_line *line)
+/*static void	debug_print_line(t_line *line)
 {
 	for (uint64_t point = 0; point < line->point_count; point++)
 	{
 		printf("%d ", line->line[point]);
 	}
 	printf("\n");
-}
+}*/
 
 static void	*free_splits(char **strings)
 {
@@ -73,8 +71,6 @@ static void	*free_splits(char **strings)
 	free(string_splits);
 	return (NULL);
 }
-
-/* line.point_count as numeral */
 
 static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
@@ -120,5 +116,4 @@ void	parse(char *filename, t_fdf_map *map)
 	}
 	if (close(fd) < 0)
 		exit_msg("file descriptor close(2) call error!\n", EXIT_ERROR);
-	//exit_msg("Parse error\n", EXIT_ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 17:28:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 08:45:15 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	init_img(t_mlx *mlx)
 		&mlx->img.line_length, &mlx->img.endian);
 }
 
-// void	debug_printer(t_fdf_map *map)
-// {
-// 	for (uint64_t line = 0; line < map->line_count; line++)
-// 	{
-// 		for (uint64_t point = 0; point < map->lines[line].point_count; point++)
-// 		{
-// 			printf("%d ", map->lines[line].line[point]);
-// 		}
-// 		printf("\n");
-// 	}
-// 	printf("\n");
-// }
+/* void	debug_printer(t_fdf_map *map)
+{
+	for (uint64_t line = 0; line < map->line_count; line++)
+	{
+		for (uint64_t point = 0; point < map->lines[line].point_count; point++)
+		{
+			printf("%d ", map->lines[line].line[point]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+} */
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {
