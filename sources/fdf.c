@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 08:44:11 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 22:10:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	init_map(&fdf.map);
 	parse(*(argv + 1), &fdf.map);
 	init_req(&mlx, &fdf);
-	hook_all(&mlx, &fdf);
+	hook_all(&(t_prog){.mlx = &mlx, .fdf = &fdf});
 	//debug_function(&mlx, &fdf);
 	draw(&mlx, &fdf);
 	mlx_loop(mlx.mlx);

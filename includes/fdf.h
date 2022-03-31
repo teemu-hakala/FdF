@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 21:58:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 22:10:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ enum e_mouse
 
 int		key_handler(int key, void *param);
 int		mouse_handler(int key, void *param);
-void	hook_all(t_mlx *mlx, t_fdf *fdf);
+void	hook_all(t_prog *prog);
 
 void	validate_line(char *line);
 
