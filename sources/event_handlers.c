@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 22:00:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 22:02:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ int	mouse_handler(int key, void *param)
 		prog->fdf->zoom /= 2;
 		draw(prog->mlx, prog->fdf);
 	}
+	return (RETURN_SUCCESS);
 }
