@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:40:40 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 11:30:44 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,30 @@ int	get_abscissa(int abscissa, t_fdf *fdf)
 	return (abscissa * fdf->zoom + fdf->offset.col);
 }
 
+int	compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf)
+{
+	if (fdf->map.lines[point0->row].line[point0->col] \
+		> fdf->map.lines[point1->row].line[point1->col])
+	{
+		return (DO_SWAP);
+	}
+	return (NO_SWAP);
+}
+
+void	swap_points(void **point0, void **point1)
+{
+	void	*temp;
+
+	temp = *point0;
+	*point0 = *point1;
+	*point1 = temp;
+}
+
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 {
+	if (compare_heights(point0, point1, fdf) == DO_SWAP)
+		swap_points(&point0, &point1);
 	my_mlx_pixel_put(image, get_ordinate(point0->row, fdf), \
 		get_abscissa(point0->col, fdf), 0x00FFFFFF);
 	//fdf->map.lines[point->row].line[point->col];

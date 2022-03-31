@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:31:28 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 11:22:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	init_req(t_mlx *mlx, t_fdf *fdf);
 void	init_map(t_fdf_map *map);
 
 # define SPACING 10
+# define DO_SWAP 1
+# define NO_SWAP 0
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void	draw(t_mlx *mlx, t_fdf *fdf);
