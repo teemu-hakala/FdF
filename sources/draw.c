@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 21:28:56 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:47:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,19 @@ int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 
 	if (compare_heights(point0, point1, fdf) == DO_SWAP)
 		swap_points(&point0, &point1);
-	delta = (t_db_pt){.row = point1->row - point0->row, \
-		.col = point1->col - point0->col};
-	pixel_count = sqrt(delta.row * delta.row + delta.col * delta.col);
-	pixel = (t_db_pt){.row = point0->row, .col = point0->col};
+	delta = (t_db_pt){.row = get_ordinate(point1->row, fdf) - \
+		get_ordinate(point0->row, fdf), .col = get_abscissa(point1->col, fdf) \
+		- get_abscissa(point0->col, fdf)};
+printf("delta: {.row == %f, .col == %f}\n", delta.row, delta.col);
+	pixel_count = (int)sqrt(delta.row * delta.row + delta.col * delta.col);
+	pixel = (t_db_pt){.row = get_ordinate(point0->row, fdf), \
+		.col = get_ordinate(point0->col, fdf)};
+printf("pixel_count: %d\n", pixel_count);
 	while (pixel_count--)
 	{
-		my_mlx_pixel_put(image, get_ordinate(point0->row, fdf), \
-			get_abscissa(point0->col, fdf), 0x00FFFFFF);
+printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
+		my_mlx_pixel_put(image, (int)pixel.row, \
+			(int)pixel.col, 0x00FFFFFF);
 		pixel = (t_db_pt){.row = pixel.row + delta.row, \
 			.col = pixel.col + delta.col};
 	}

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 21:23:21 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:58:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
+typedef struct s_program
+{
+	t_mlx	*mlx;
+	t_fdf	*fdf;
+}	t_prog;
+
 # define RETURN_SUCCESS 1
 # define RETURN_ERROR 0
 
@@ -95,7 +101,8 @@ typedef struct s_mlx
 void	exit_msg(const char *msg, int val);
 int		close_success(void);
 
-enum e_event{
+enum e_event
+{
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
@@ -110,7 +117,17 @@ enum e_key
 	KEY_ESC = 53
 };
 
+enum e_mouse
+{
+	LEFT_CLICK = 1,
+	RIGHT_CLICK = 2,
+	MIDDLE_CLICK = 3,
+	SCROLL_UP = 4,
+	SCROLL_DOWN = 5
+};
+
 int		key_handler(int key, void *param);
+int		mouse_handler(int key, void *param);
 void	hook_all(t_mlx *mlx, t_fdf *fdf);
 
 void	validate_line(char *line);
@@ -120,7 +137,7 @@ void	parse(char *filename, t_fdf_map *map);
 void	init_req(t_mlx *mlx, t_fdf *fdf);
 void	init_map(t_fdf_map *map);
 
-# define SPACING 10
+# define SPACING 77
 # define DO_SWAP 1
 # define NO_SWAP 0
 
