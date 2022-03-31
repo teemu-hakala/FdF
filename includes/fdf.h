@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 11:22:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:23:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //# include <unistd.h> // man 2 read; man 2 write; man 2 close
 # include <stdlib.h> // man 3 malloc; man 3 free; man 3 exit
 //# include <stdio.h> // man 3 perror; man 3 strerror
-//# include <math.h> // man 3 math
+# include <math.h> // man 3 math
 
 	#	 include <stdio.h>
 # include "mlx.h"
@@ -38,6 +38,12 @@ typedef struct s_point
 	int		row;
 	int		col;
 }	t_pt;
+
+typedef struct s_double_coordinate
+{
+	double	row;
+	double	col;
+}	t_db_pt;
 
 typedef struct s_line
 {

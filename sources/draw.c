@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 11:30:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:28:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf)
 	return (NO_SWAP);
 }
 
-void	swap_points(void **point0, void **point1)
+void	swap_points(t_pt **point0, t_pt **point1)
 {
-	void	*temp;
+	t_pt	*temp;
 
 	temp = *point0;
 	*point0 = *point1;
@@ -76,11 +76,23 @@ void	swap_points(void **point0, void **point1)
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 {
+	t_db_pt	delta;
+	t_db_pt	pixel;
+	int		pixel_count;
+
 	if (compare_heights(point0, point1, fdf) == DO_SWAP)
 		swap_points(&point0, &point1);
-	my_mlx_pixel_put(image, get_ordinate(point0->row, fdf), \
-		get_abscissa(point0->col, fdf), 0x00FFFFFF);
-	//fdf->map.lines[point->row].line[point->col];
+	delta = (t_db_pt){.row = point1->row - point0->row, \
+		.col = point1->col - point0->col};
+	pixel_count = sqrt(delta.row * delta.row + delta.col * delta.col);
+	pixel = (t_db_pt){.row = point0->row, .col = point0->col};
+	while (pixel_count--)
+	{
+		my_mlx_pixel_put(image, get_ordinate(point0->row, fdf), \
+			get_abscissa(point0->col, fdf), 0x00FFFFFF);
+		pixel = (t_db_pt){.row = pixel.row + delta.row, \
+			.col = pixel.col + delta.col};
+	}
 	return (RETURN_SUCCESS);
 }
 
