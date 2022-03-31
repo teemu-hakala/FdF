@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:23:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:32:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 	// debug_printer(&fdf->map);
 	init_img(mlx);
 	point.row = 0;
-	while ((uint64_t)point.row < fdf->map.line_count)
+	while (point.row < fdf->map.line_count)
 	{
 		point.col = 0;
-		while ((uint64_t)point.col < fdf->map.lines[point.row].point_count)
+		while (point.col < fdf->map.lines[point.row].point_count)
 		{
 			draw_line(&point, fdf, &mlx->img);
-			if ((uint64_t)point.col + 1 < fdf->map.lines[point.row].point_count)
+			if (point.col + 1 < fdf->map.lines[point.row].point_count)
 				draw_line(&(t_pt){.row = point.row, .col = point.col + 1}, \
 					fdf, &mlx->img);
-			if ((uint64_t)point.row + 1 < fdf->map.line_count)
+			if (point.row + 1 < fdf->map.line_count)
 				draw_line(&(t_pt){.row = point.row + 1, .col = point.col}, \
 					fdf, &mlx->img);
 			point.col++;

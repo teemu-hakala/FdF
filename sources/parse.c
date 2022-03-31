@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 08:43:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:34:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,40 @@
 
 static void	update_map_line_count(t_fdf_map *map)
 {
-	t_line		*deletable_lines;
-	uint64_t	temp_size;
+	t_line		*del_lines;
+	int			temp_size;
 
 	if (map->size > map->line_count)
 		return ;
-	deletable_lines = map->lines;
+	del_lines = map->lines;
 	temp_size = map->line_count * 3 / 2 + 1;
-	map->lines = (t_line *)malloc(sizeof(t_line) * (temp_size + 1));
+	if (temp_size < 0)
+		exit_msg("temp_size < 0\n", EXIT_ERROR);
+	map->lines = (t_line *)malloc(sizeof(t_line) * (((size_t)temp_size) + 1));
 	if (map->lines == NULL)
 		exit_msg("map->lines mallocation error!\n", EXIT_ERROR);
-	if (deletable_lines != NULL)
-		ft_memcpy(map->lines, deletable_lines, map->size * sizeof(t_line));
+	if (del_lines != NULL)
+		ft_memcpy(map->lines, del_lines, (size_t)map->size * sizeof(t_line));
 	map->size = temp_size;
-	free(deletable_lines);
+	free(del_lines);
 }
 
 static void	update_line_length(t_line *line)
 {
 	int			*deletable_line;
-	uint64_t	temp_size;
+	int			temp_size;
 
 	if (line->size > line->point_count)
 		return ;
 	deletable_line = line->line;
 	temp_size = line->point_count * 3 / 2 + 1;
-	line->line = (int *)malloc(sizeof(int) * temp_size); // removed + 1
+	if (temp_size < 0)
+		exit_msg("temp_size < 0\n", EXIT_ERROR);
+	line->line = (int *)malloc(sizeof(int) * (size_t)temp_size); // removed + 1
 	if (line->line == NULL)
 		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
 	if (deletable_line != NULL)
-		ft_memcpy(line->line, deletable_line, line->size * sizeof(int));
+		ft_memcpy(line->line, deletable_line, (size_t)line->size * sizeof(int));
 	line->size = temp_size;
 	free(deletable_line);
 }
