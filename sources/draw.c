@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:32:02 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 09:40:40 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	get_abscissa(int abscissa, t_fdf *fdf)
 }
 
 /* start drawing line from origin until the edge of the image */
-int	draw_line(t_pt *point, t_fdf *fdf, t_img *image)
+int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 {
-	my_mlx_pixel_put(image, get_ordinate(point->row, fdf), \
-		get_abscissa(point->col, fdf), 0x00FFFFFF);
+	my_mlx_pixel_put(image, get_ordinate(point0->row, fdf), \
+		get_abscissa(point0->col, fdf), 0x00FFFFFF);
 	//fdf->map.lines[point->row].line[point->col];
 	return (RETURN_SUCCESS);
 }
@@ -75,13 +75,12 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 		point.col = 0;
 		while (point.col < fdf->map.lines[point.row].point_count)
 		{
-			draw_line(&point, fdf, &mlx->img);
 			if (point.col + 1 < fdf->map.lines[point.row].point_count)
-				draw_line(&(t_pt){.row = point.row, .col = point.col + 1}, \
-					fdf, &mlx->img);
+				draw_line(&point, &(t_pt){.row = point.row, \
+					.col = point.col + 1}, fdf, &mlx->img);
 			if (point.row + 1 < fdf->map.line_count)
-				draw_line(&(t_pt){.row = point.row + 1, .col = point.col}, \
-					fdf, &mlx->img);
+				draw_line(&point, &(t_pt){.row = point.row + 1, \
+					.col = point.col}, fdf, &mlx->img);
 			point.col++;
 		}
 		point.row++;
