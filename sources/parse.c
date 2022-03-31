@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/30 18:44:34 by thakala          ###   ########.fr       */
+/*   Updated: 2022/03/31 08:40:26 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ static void	update_map_line_count(t_fdf_map *map)
 }
 
 /* Use ->size instead of ->len for the new size of malloc. */
-static void	update_line_length(t_line *line, uint64_t current_point_count)
+static void	update_line_length(t_line *line)
 {
 	int			*deletable_line;
 	uint64_t	temp_size;
 
-	if (line->size > current_point_count)
+	if (line->size > line->point_count)
 		return ;
 	deletable_line = line->line;
-	temp_size = current_point_count * 3 / 2 + 1;//!current_point_count;
+	temp_size = line->point_count * 3 / 2 + 1;//!line->point_count;
 	line->line = (int *)malloc(sizeof(int) * temp_size); // removed + 1
 	if (line->line == NULL)
 		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
@@ -80,22 +80,18 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
 	char		**numerals;
 	t_line		line;
-	uint64_t	numeral;
 	int			temp_height;
 
 	ft_bzero(&line, sizeof(t_line));
 	numerals = ft_strsplit(line_string, ' ');
 	if (numerals == NULL)
 		exit_msg("ft_strsplit return was NULL!\n", EXIT_ERROR);
-	numeral = 0;
-	while (numerals[numeral])
+	while (numerals[line.point_count])
 	{
-		temp_height = ft_atoi(numerals[numeral]);
-		update_line_length(&line, numeral);
-		line.line[numeral] = temp_height;
-		numeral++;
+		temp_height = ft_atoi(numerals[line.point_count]);
+		update_line_length(&line);
+		line.line[line.point_count++] = temp_height;
 	}
-	line.point_count = numeral;
 	map->lines[map->line_count] = line;
 	numerals = free_splits(numerals);
 }
