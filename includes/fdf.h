@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 13:06:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 15:44:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	validate_line(char *line);
 
 void	parse(char *filename, t_fdf_map *map);
 
-void	init_req(t_mlx *mlx, t_fdf *fdf);
+void	init_req(t_prog *prog);
 void	init_map(t_fdf_map *map);
 
 # define SPACING 77

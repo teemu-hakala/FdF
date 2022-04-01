@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:07:37 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 12:41:50 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 15:45:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,24 @@ int	main(int argc, char **argv)
 {
 	static t_mlx	mlx;
 	static t_fdf	fdf;
-	t_prog			*prog;
+	// t_prog			*prog;
+	t_prog			prog;
 
 	if (argc != 2)
 		exit_msg("usage: ./fdf <filename>.fdf\n", EXIT_ERROR);
-	init_map(&fdf.map);
-	parse(*(argv + 1), &fdf.map);
-	init_req(&mlx, &fdf);
-	prog = &(t_prog){.mlx = &mlx, .fdf = &fdf};
-	hook_all(prog);
+	prog.mlx = &mlx;
+	prog.fdf = &fdf;
+	// init_map(&fdf.map);
+	parse(*(argv + 1), &prog.fdf->map);
+	init_req(&prog);
+	//prog = (t_prog *)malloc(sizeof(t_prog));
+	hook_all(&prog);
+	//prog = &(t_prog){.mlx = &mlx, .fdf = &fdf};
+	//hook_all(prog);
+	//prog = (t_prog){.mlx = &mlx, .fdf = &fdf};
+	//hook_all(&prog);
 	//debug_function(&mlx, &fdf);
 	//draw(&mlx, &fdf);
-	draw(prog);
-	mlx_loop(mlx.mlx);
+	draw(&prog);
+	mlx_loop(prog.mlx->mlx);
 }
