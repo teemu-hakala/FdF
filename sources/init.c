@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 17:47:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:16:38 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,16 @@ static void	init_fdf(t_fdf *fdf)
 	fdf->offset = (t_pt){.row = WIN_HEIGHT / 8, .col = WIN_WIDTH / 8};
 }
 
+static void	init_mse(t_prog *prog)
+{
+	prog->mse->prev = prog->fdf->origin;
+	prog->mse->curr = prog->fdf->origin;
+	prog->mse->diff = (t_l_pt){.row = 0LL, .col = 0LL};
+}
+
 void	init_req(t_prog *prog)
 {
 	init_mlx(prog->mlx);
 	init_fdf(prog->fdf);
+	init_mse(prog);
 }

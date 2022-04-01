@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 18:10:03 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:00:36 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 // printf("pixel_count: %d\n", pixel_count);
 	while (pixel_count--)
 	{
-// printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
+printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
 		projected_pixel = (t_db_pt){.row = project(pixel.row), \
 			.col = project(pixel.col)};
 		if (in_range(0, (int)projected_pixel.row, WIN_HEIGHT) \
