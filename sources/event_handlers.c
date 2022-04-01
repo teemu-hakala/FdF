@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 12:46:25 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 16:11:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	mouse_handler(int key, void *param)
 {
 	t_prog	*prog;
 
-printf("MOUSE_KEY: %d\n", key);
 	prog = (t_prog *)param;
+printf("MOUSE_KEY: %d\n", key);
 printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
 	if (key == SCROLL_UP)
 	{
