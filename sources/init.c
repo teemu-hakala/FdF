@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 15:46:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:47:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,8 @@ static void	init_fdf(t_fdf *fdf)
 	fdf->offset = (t_pt){.row = WIN_HEIGHT / 8, .col = WIN_WIDTH / 8};
 }
 
-/*void	init_map(t_fdf_map *map)
-{
-	(void) map;
-	//map->line_count = (uint64_t)INITIAL_LINE_COUNT;
-	//map->map = (int **)malloc(sizeof(int *) * (map->line_count + 1));
-}*/
-
 void	init_req(t_prog *prog)
 {
 	init_mlx(prog->mlx);
 	init_fdf(prog->fdf);
-	//init_map(&fdf->map);
 }
