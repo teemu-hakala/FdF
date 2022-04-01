@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 17:44:03 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:51:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ printf("x: %d, y: y %d\n", x, y);
 	if (button == SCROLL_UP)
 	{
 		prog->fdf->zoom <<= 1;
-		draw(prog);
+		draw(prog->mlx, prog->fdf);
 	}
 	else if (button == SCROLL_DOWN)
 	{
 		prog->fdf->zoom >>= 1;
-		draw(prog);
+		draw(prog->mlx, prog->fdf);
 	}
 	return (RETURN_SUCCESS);
 }

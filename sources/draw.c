@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 17:09:56 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:52:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,11 @@ printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
 	return (RETURN_SUCCESS);
 }
 
-void	draw(t_prog *prog)
+void	draw(t_mlx *mlx, t_fdf *fdf)
 {
-	t_mlx	*mlx;
-	t_fdf	*fdf;
 	t_pt	point;
 
 	// debug_printer(&fdf->map);
-	mlx = prog->mlx;
-	fdf = prog->fdf;
 	init_img(mlx);
 	point.row = 0;
 	while (point.row < fdf->map.line_count)
