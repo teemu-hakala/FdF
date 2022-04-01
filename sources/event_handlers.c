@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 18:16:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:19:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ printf("fdf->origin.row %d\n", prog->fdf->origin.row);
 int	zoomer(int dir, int zoom)
 {
 	if (dir == ZOOM_IN)
+	{
 		if ((zoom << 1) >> 1 == zoom)
 			return (zoom << 1);
+	}
 	else if (dir == ZOOM_OUT)
 		if ((zoom >> 1) << 1 == zoom)
 			return (zoom >> 1);
