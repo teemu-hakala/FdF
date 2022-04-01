@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 16:11:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:44:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	key_handler(int key, void *param)
 {
-	t_fdf	*fdf;
+	t_prog	*prog;
 
 	(void) key;
-	fdf = (t_fdf *)param;
-printf("fdf->origin.row %d\n", fdf->origin.row);
+	prog = (t_prog *)param;
+printf("fdf->origin.row %d\n", prog->fdf->origin.row);
 	if (key == KEY_ESC)
 		exit_msg("Escape!", 0);
 	ft_putnbr(key);
@@ -26,19 +26,17 @@ printf("fdf->origin.row %d\n", fdf->origin.row);
 	return (0);
 }
 
-int	mouse_handler(int key, void *param)
+int	mouse_handler(int button, int x, int y, t_prog *prog)
 {
-	t_prog	*prog;
-
-	prog = (t_prog *)param;
-printf("MOUSE_KEY: %d\n", key);
+printf("MOUSE_KEY: %d\n", button);
 printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
-	if (key == SCROLL_UP)
+printf("x: %d, y: y %d\n", x, y);
+	if (button == SCROLL_UP)
 	{
 		prog->fdf->zoom <<= 1;
 		draw(prog);
 	}
-	else if (key == SCROLL_DOWN)
+	else if (button == SCROLL_DOWN)
 	{
 		prog->fdf->zoom >>= 1;
 		draw(prog);

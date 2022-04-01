@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 15:44:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:23:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 
 typedef enum e_color
 {
-	COLOR_DEF = 0xFFFFFF
+	COLOR_DEF = 0xFFFFFF,
+	COLOR_HEIGHT = 0xFF0000
 }	t_color;
 
 typedef struct s_point
@@ -126,8 +127,14 @@ enum e_mouse
 	SCROLL_DOWN = 5
 };
 
+enum e_projection
+{
+	PROJ_PARALLEL,
+	PROJ_ISOMETRIC
+};
+
 int		key_handler(int key, void *param);
-int		mouse_handler(int key, void *param);
+int		mouse_handler(int button, int x, int y, t_prog *prog);
 void	hook_all(t_prog *prog);
 
 void	validate_line(char *line);
@@ -142,7 +149,6 @@ void	init_map(t_fdf_map *map);
 # define NO_SWAP 0
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-//void	draw(t_mlx *mlx, t_fdf *fdf);
 void	draw(t_prog *prog);
 
 #endif

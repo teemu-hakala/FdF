@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 13:16:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 17:09:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ void	swap_points(t_pt **point0, t_pt **point1)
 	*point1 = temp;
 }
 
+double	project(double scalar)
+{
+	return (scalar);
+}
+
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 {
@@ -95,8 +100,8 @@ printf("pixel_count: %d\n", pixel_count);
 	while (pixel_count--)
 	{
 printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
-		my_mlx_pixel_put(image, (int)pixel.col, \
-			(int)pixel.row, 0x00FFFFFF);
+		my_mlx_pixel_put(image, (int)project(pixel.col), \
+			(int)project(pixel.row), 0x00FFFFFF);
 		pixel = (t_db_pt){.row = pixel.row + delta.row, \
 			.col = pixel.col + delta.col};
 	}
