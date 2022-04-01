@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 17:50:54 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:15:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,12 @@ enum e_projection
 {
 	PROJ_PARALLEL,
 	PROJ_ISOMETRIC
+};
+
+enum e_zoom
+{
+	ZOOM_IN = 1,
+	ZOOM_OUT = -1
 };
 
 int		key_handler(int key, void *param);

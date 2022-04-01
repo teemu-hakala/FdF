@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 17:52:02 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 18:10:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * data->bytes_per_pixel);
 	*(unsigned int *)dst = (unsigned int)color;
 }
 
@@ -29,6 +29,7 @@ void	init_img(t_mlx *mlx)
 	mlx->img.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel, \
 		&mlx->img.line_length, &mlx->img.endian);
+	mlx->img.bytes_per_pixel = mlx->img.bits_per_pixel / 8;
 }
 
 /* void	debug_printer(t_fdf_map *map)
@@ -78,11 +79,17 @@ double	project(double scalar)
 	return (scalar);
 }
 
+int	in_range(int lowest, int value, int upto)
+{
+	return (lowest <= value && value < upto);
+}
+
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 {
 	t_db_pt	delta;
 	t_db_pt	pixel;
+	t_db_pt	projected_pixel;
 	int		pixel_count;
 
 	if (compare_heights(point0, point1, fdf) == DO_SWAP)
@@ -90,18 +97,22 @@ int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 	delta = (t_db_pt){.row = get_ordinate(point1->row, fdf) - \
 		get_ordinate(point0->row, fdf), .col = get_abscissa(point1->col, fdf) \
 		- get_abscissa(point0->col, fdf)};
-printf("delta: {.row == %f, .col == %f}\n", delta.row, delta.col);
+// printf("delta: {.row == %f, .col == %f}\n", delta.row, delta.col);
 	pixel_count = (int)sqrt(delta.row * delta.row + delta.col * delta.col);
 	delta = (t_db_pt){.row = delta.row / pixel_count, \
 		.col = delta.col / pixel_count};
 	pixel = (t_db_pt){.row = get_ordinate(point0->row, fdf), \
 		.col = get_ordinate(point0->col, fdf)};
-printf("pixel_count: %d\n", pixel_count);
+// printf("pixel_count: %d\n", pixel_count);
 	while (pixel_count--)
 	{
-printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
-		my_mlx_pixel_put(image, (int)project(pixel.col), \
-			(int)project(pixel.row), 0x00FFFFFF);
+// printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
+		projected_pixel = (t_db_pt){.row = project(pixel.row), \
+			.col = project(pixel.col)};
+		if (in_range(0, (int)projected_pixel.row, WIN_HEIGHT) \
+			&& in_range(0, (int)projected_pixel.col, WIN_WIDTH))
+			my_mlx_pixel_put(image, (int)projected_pixel.col, \
+				(int)projected_pixel.row, 0x00FFFFFF);
 		pixel = (t_db_pt){.row = pixel.row + delta.row, \
 			.col = pixel.col + delta.col};
 	}
