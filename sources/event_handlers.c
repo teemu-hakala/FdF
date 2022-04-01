@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 22:13:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 12:46:25 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 int	key_handler(int key, void *param)
 {
+	t_fdf	*fdf;
+
 	(void) key;
-	(void) param;
+	fdf = (t_fdf *)param;
+printf("fdf->origin.row %d\n", fdf->origin.row);
 	if (key == KEY_ESC)
 		exit_msg("Escape!", 0);
 	ft_putnbr(key);
@@ -29,16 +32,16 @@ int	mouse_handler(int key, void *param)
 
 printf("MOUSE_KEY: %d\n", key);
 	prog = (t_prog *)param;
-//printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
+printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
 	if (key == SCROLL_UP)
 	{
-		prog->fdf->zoom *= 2;
-		draw(prog->mlx, prog->fdf);
+		prog->fdf->zoom <<= 1;
+		draw(prog);
 	}
 	else if (key == SCROLL_DOWN)
 	{
-		prog->fdf->zoom /= 2;
-		draw(prog->mlx, prog->fdf);
+		prog->fdf->zoom >>= 1;
+		draw(prog);
 	}
 	return (RETURN_SUCCESS);
 }

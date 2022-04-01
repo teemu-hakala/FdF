@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 22:10:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:06:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	init_map(t_fdf_map *map);
 # define NO_SWAP 0
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-void	draw(t_mlx *mlx, t_fdf *fdf);
+//void	draw(t_mlx *mlx, t_fdf *fdf);
+void	draw(t_prog *prog);
 
 #endif

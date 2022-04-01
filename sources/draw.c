@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 21:47:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:14:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,31 @@ int	draw_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
 		- get_abscissa(point0->col, fdf)};
 printf("delta: {.row == %f, .col == %f}\n", delta.row, delta.col);
 	pixel_count = (int)sqrt(delta.row * delta.row + delta.col * delta.col);
+	delta = (t_db_pt){.row = delta.row / pixel_count, \
+		.col = delta.col / pixel_count};
 	pixel = (t_db_pt){.row = get_ordinate(point0->row, fdf), \
 		.col = get_ordinate(point0->col, fdf)};
 printf("pixel_count: %d\n", pixel_count);
 	while (pixel_count--)
 	{
 printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
-		my_mlx_pixel_put(image, (int)pixel.row, \
-			(int)pixel.col, 0x00FFFFFF);
+		my_mlx_pixel_put(image, (int)pixel.col, \
+			(int)pixel.row, 0x00FFFFFF);
 		pixel = (t_db_pt){.row = pixel.row + delta.row, \
 			.col = pixel.col + delta.col};
 	}
 	return (RETURN_SUCCESS);
 }
 
-void	draw(t_mlx *mlx, t_fdf *fdf)
+void	draw(t_prog *prog)
 {
+	t_mlx	*mlx;
+	t_fdf	*fdf;
 	t_pt	point;
 
 	// debug_printer(&fdf->map);
+	mlx = prog->mlx;
+	fdf = prog->fdf;
 	init_img(mlx);
 	point.row = 0;
 	while (point.row < fdf->map.line_count)

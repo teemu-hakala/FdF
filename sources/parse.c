@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/31 09:34:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:03:57 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	parse(char *filename, t_fdf_map *map)
 		free(line);
 		map->line_count += (uint64_t) !!status;
 	}
+	free(line); //Double free? Does gnl place NULL in *line when returns 0?
 	if (close(fd) < 0)
 		exit_msg("file descriptor close(2) call error!\n", EXIT_ERROR);
 }
