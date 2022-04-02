@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 19:16:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:41:05 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	init_mse(t_prog *prog)
 {
 	prog->mse->prev = prog->fdf->origin;
 	prog->mse->curr = prog->fdf->origin;
-	prog->mse->diff = (t_l_pt){.row = 0LL, .col = 0LL};
+	prog->mse->diff = (t_pt){.row = 0, .col = 0};
+	prog->mse->isdown = FALSE;
 }
 
 void	init_req(t_prog *prog)

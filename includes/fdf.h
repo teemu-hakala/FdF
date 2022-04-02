@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 19:24:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 19:38:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_mouse
 	t_pt	prev;
 	t_pt	curr;
 	t_pt	diff;
+	char	isdown;
 }	t_mse;
 
 typedef struct s_fdf
@@ -104,6 +105,9 @@ typedef struct s_program
 # define RETURN_SUCCESS 1
 # define RETURN_ERROR 0
 
+# define TRUE 1
+# define FALSE 0
+
 # define EXIT_ERROR 1
 # define EXIT_SUCCESS 0
 
@@ -128,6 +132,7 @@ enum e_key
 
 enum e_mouse
 {
+	MOVE = 0,
 	LEFT_CLICK = 1,
 	RIGHT_CLICK = 2,
 	MIDDLE_CLICK = 3,
@@ -150,7 +155,7 @@ enum e_zoom
 int		key_handler(int key, void *param);
 int		mouse_handler(int button, int x, int y, t_prog *prog);
 int		mouse_handler_down(int button, int x, int y, t_prog *prog);
-int		mouse_handler_move(int button, int x, int y, t_prog *prog);
+int		mouse_handler_move(int x, int y, t_prog *prog);
 int		mouse_handler_up(int button, int x, int y, t_prog *prog);
 void	hook_all(t_prog *prog);
 

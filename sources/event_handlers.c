@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 19:23:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/01 21:10:33 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,80 @@ void	pan(t_prog *prog)
 		};
 }
 
-int	mouse_handler_down(int button, int x, int y, t_prog *prog)
+void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
 {
-	prog->mse->prev = prog->mse->curr;
-	prog->mse->curr = (t_pt){.row = y, .col = x};
-	mouse_handler(button, x, y, prog);
+	double	scalar;
+	t_pt	vector;
+
+	scalar = 1.0;
+	if (prog->fdf->zoom != 0)
+		scalar = prev_zoom / prog->fdf->zoom;
+	vector = (t_pt){.row = (int)(scalar * (mse->row - prog->fdf->origin.row)), \
+		.col = (int)(scalar * (mse->col - prog->fdf->origin.col))};
+	prog->fdf->offset = vector;
 }
 
-int	mouse_handler_move(int button, int x, int y, t_prog *prog)
+int	mouse_handler_down(int button, int x, int y, t_prog *prog)
+{
+	int		prev_zoom;
+
+	if (button == LEFT_CLICK)
+	{
+		prog->mse->prev = prog->mse->curr;
+		prog->mse->curr = (t_pt){.row = y, .col = x};
+		prog->mse->isdown = TRUE;
+		return (mouse_handler(button, x, y, prog));
+	}
+	prev_zoom = prog->fdf->zoom;
+	if (button == SCROLL_UP)
+	{
+		prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
+		offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		draw(prog->mlx, prog->fdf);
+		return (RETURN_SUCCESS);
+	}
+	if (button == SCROLL_DOWN)
+	{
+		prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
+		offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		draw(prog->mlx, prog->fdf);
+		return (RETURN_SUCCESS);
+	}
+	return (RETURN_ERROR);
+}
+
+/*
+	Advanced mouse locking, from which you escape by left clicking.
+	Mouse is centralised whenever movement with left click down is detected.
+
+		int		mlx_mouse_move(void *win_ptr, int x, int y);
+		int		mlx_do_key_autorepeaton(void *mlx_ptr);
+*/
+
+int	mouse_handler_move(int x, int y, t_prog *prog)
 {
 
-	prog->mse->prev = prog->mse->curr;
-	prog->mse->diff = (t_pt){.row = y - prog->mse->curr.row, \
-		.col = x - prog->mse->curr.col};
-	pan(prog);
-	prog->mse->curr = (t_pt){.row = y, .col = x};
-	mouse_handler(button, x, y, prog);
+	if (prog->mse->isdown == TRUE)
+	{
+		prog->mse->prev = prog->mse->curr;
+		prog->mse->diff = (t_pt){.row = y - prog->mse->curr.row, \
+			.col = x - prog->mse->curr.col};
+		pan(prog);
+		prog->mse->curr = (t_pt){.row = y, .col = x};
+		return (mouse_handler(MOVE, x, y, prog));
+	}
+	return (RETURN_ERROR);
 }
 
 int	mouse_handler_up(int button, int x, int y, t_prog *prog)
 {
-	prog->mse->prev = prog->mse->curr;
-	mouse_handler(button, x, y, prog);
+	if (button == LEFT_CLICK)
+	{
+		prog->mse->prev = prog->mse->curr;
+		prog->mse->isdown = FALSE;
+		return (mouse_handler(button, x, y, prog));
+	}
+	return (RETURN_ERROR);
 }
 
 int	mouse_handler(int button, int x, int y, t_prog *prog)
