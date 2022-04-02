@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 09:46:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 20:41:37 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_fdf
 	t_pt		origin;
 	t_color		color;
 	t_pt		offset;
+	int			height;
 	int			zoom;
 	t_fdf_map	map;
 }	t_fdf;
@@ -165,11 +166,15 @@ void	validate_line(char *line);
 void	parse(char *filename, t_fdf_map *map);
 
 void	init_req(t_prog *prog);
-void	init_map(t_fdf_map *map);
+void	init_img(t_mlx *mlx);
 
 # define SPACING 77
 # define DO_SWAP 1
 # define NO_SWAP 0
+
+int		get_ordinate(int ordinate, t_fdf *fdf);
+int		get_abscissa(int abscissa, t_fdf *fdf);
+int		get_altitude(int altitude, t_fdf *fdf);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		draw_debug_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image);

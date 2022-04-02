@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/03/28 19:51:34 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/02 20:41:56 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ FILES = \
 	draw \
 	init \
 	parse \
-	validate
+	validate \
+	coordinates
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft

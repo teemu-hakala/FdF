@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 18:53:21 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 20:38:14 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ void	init_req(t_prog *prog)
 	init_mlx(prog->mlx);
 	init_fdf(prog->fdf);
 	init_mse(prog);
+}
+
+void	init_img(t_mlx *mlx)
+{
+	mlx->img.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel, \
+		&mlx->img.line_length, &mlx->img.endian);
+	mlx->img.bytes_per_pixel = mlx->img.bits_per_pixel / 8;
 }
