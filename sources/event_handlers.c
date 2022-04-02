@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 10:48:36 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 19:23:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,47 @@ void	pan(t_prog *prog)
 		};
 }
 
+// void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
+// {
+// 	double	scalar;
+// 	t_pt	vector;
+
+// 	scalar = 1.0;
+// 	if (prog->fdf->zoom != 0)
+// 		scalar = (double)prog->fdf->zoom / prev_zoom;
+// printf("prev_zoom / prog->fdf->zoom: %d / %d\n", prev_zoom, prog->fdf->zoom);
+// printf("scalar: %.15f\n", scalar);
+// 	vector = (t_pt){.row = (int)(scalar * (mse->row - prog->fdf->offset.row)), \
+// 		.col = (int)(scalar * (mse->col - prog->fdf->offset.col))};
+// printf("vector.row: %d, vector.col: %d\n", vector.row, vector.col);
+// printf("mse->row: %d, mse->col: %d\n", mse->row, mse->col);
+// 	prog->fdf->offset = vector;
+// printf("offset.row: %d, offset.col: %d\n", prog->fdf->offset.row, prog->fdf->offset.col);
+
+// /*printf("mse->row: %d, WIN_HEIGHT: %d, prog->fdf->zoom: %d, prev_zoom: %d, prog->fdf->map.line_count: %d\n", \
+// 	mse->row, WIN_HEIGHT, prog->fdf->zoom, prev_zoom, prog->fdf->map.line_count);
+// printf("mse->col: %d, WIN_WIDTH: %d, prog->fdf->zoom: %d, prev_zoom: %d, prog->fdf->map.max_point_count: %d\n\n", \
+// 	mse->col, WIN_WIDTH, prog->fdf->zoom, prev_zoom, prog->fdf->map.max_point_count);
+// 	vector = (t_pt){.row = (int)((double)prog->fdf->origin.row - ((double)mse->row / WIN_HEIGHT * ((prog->fdf->zoom - prev_zoom) * prog->fdf->map.line_count))),
+// 		.col = (int)((double)prog->fdf->origin.col - ((double)mse->col / WIN_WIDTH * ((prog->fdf->zoom - prev_zoom) * prog->fdf->map.max_point_count)))};
+// draw_debug_line(&prog->fdf->origin, &vector, prog->fdf, &prog->mlx->img);
+// printf("vector.row: %d, vector.row: %d\n", vector.row, vector.col);
+// printf("offset.row: %d, offset.col: %d\n", prog->fdf->offset.row, prog->fdf->offset.col);
+// 	prog->fdf->offset = vector;
+// printf("offset.row: %d, offset.col: %d\n\n", prog->fdf->offset.row, prog->fdf->offset.col);*/
+// }
+
 void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
 {
 	double	scalar;
 	t_pt	vector;
 
 	scalar = 1.0;
-	if (prog->fdf->zoom != 0)
+	if (prev_zoom != 0)
 		scalar = (double)prog->fdf->zoom / prev_zoom;
-printf("prev_zoom / prog->fdf->zoom: %d / %d\n", prev_zoom, prog->fdf->zoom);
-printf("scalar: %.15f\n", scalar);
 	vector = (t_pt){.row = (int)(scalar * (mse->row - prog->fdf->offset.row)), \
 		.col = (int)(scalar * (mse->col - prog->fdf->offset.col))};
-printf("vector.row: %d, vector.col: %d\n", vector.row, vector.col);
-printf("mse->row: %d, mse->col: %d\n", mse->row, mse->col);
 	prog->fdf->offset = vector;
-printf("offset.row: %d, offset.col: %d\n", prog->fdf->offset.row, prog->fdf->offset.col);
-
-/*printf("mse->row: %d, WIN_HEIGHT: %d, prog->fdf->zoom: %d, prev_zoom: %d, prog->fdf->map.line_count: %d\n", \
-	mse->row, WIN_HEIGHT, prog->fdf->zoom, prev_zoom, prog->fdf->map.line_count);
-printf("mse->col: %d, WIN_WIDTH: %d, prog->fdf->zoom: %d, prev_zoom: %d, prog->fdf->map.max_point_count: %d\n\n", \
-	mse->col, WIN_WIDTH, prog->fdf->zoom, prev_zoom, prog->fdf->map.max_point_count);
-	vector = (t_pt){.row = (int)((double)prog->fdf->origin.row - ((double)mse->row / WIN_HEIGHT * ((prog->fdf->zoom - prev_zoom) * prog->fdf->map.line_count))),
-		.col = (int)((double)prog->fdf->origin.col - ((double)mse->col / WIN_WIDTH * ((prog->fdf->zoom - prev_zoom) * prog->fdf->map.max_point_count)))};
-draw_debug_line(&prog->fdf->origin, &vector, prog->fdf, &prog->mlx->img);
-printf("vector.row: %d, vector.row: %d\n", vector.row, vector.col);
-printf("offset.row: %d, offset.col: %d\n", prog->fdf->offset.row, prog->fdf->offset.col);
-	prog->fdf->offset = vector;
-printf("offset.row: %d, offset.col: %d\n\n", prog->fdf->offset.row, prog->fdf->offset.col);*/
 }
 
 int	mouse_handler_down(int button, int x, int y, t_prog *prog)
@@ -94,14 +107,14 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 	if (button == SCROLL_UP)
 	{
 		prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
-		offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
 		draw(prog->mlx, prog->fdf);
 		return (RETURN_SUCCESS);
 	}
 	if (button == SCROLL_DOWN)
 	{
 		prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
-		offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
 		draw(prog->mlx, prog->fdf);
 		return (RETURN_SUCCESS);
 	}
