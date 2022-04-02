@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 19:38:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 09:46:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_map
 	int			line_count;
 	int			size;
 	int			max_point_count;
+	int			max_height;
 }	t_fdf_map;
 
 typedef struct s_mouse
@@ -171,6 +172,7 @@ void	init_map(t_fdf_map *map);
 # define NO_SWAP 0
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int		draw_debug_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image);
 void	draw(t_mlx *mlx, t_fdf *fdf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 19:48:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 09:22:17 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,36 @@ double	project(double scalar)
 int	in_range(int lowest, int value, int upto)
 {
 	return (lowest <= value && value < upto);
+}
+
+/* start drawing line from origin until the edge of the image */
+int	draw_debug_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image)
+{
+	t_db_pt	delta;
+	t_db_pt	pixel;
+	int		pixel_count;
+
+	(void) fdf;
+	delta = (t_db_pt){.row = point1->row - point0->row, \
+		.col = point1->col - point0->col};
+printf("delta: {.row == %f, .col == %f}\n", delta.row, delta.col);
+	pixel_count = (int)sqrt(delta.row * delta.row + delta.col * delta.col);
+	delta = (t_db_pt){.row = delta.row / pixel_count, \
+		.col = delta.col / pixel_count};
+	pixel = (t_db_pt){.row = point0->row, \
+		.col = point0->col};
+printf("pixel_count: %d\n", pixel_count);
+	while (pixel_count--)
+	{
+printf("pixel: {.row == %f, .col == %f}\n", pixel.row, pixel.col);
+		if (in_range(0, (int)pixel.row, WIN_HEIGHT) \
+			&& in_range(0, (int)pixel.col, WIN_WIDTH))
+			my_mlx_pixel_put(image, (int)pixel.col, \
+				(int)pixel.row, 0x00FFFFFF);
+		pixel = (t_db_pt){.row = pixel.row + delta.row, \
+			.col = pixel.col + delta.col};
+	}
+	return (RETURN_SUCCESS);
 }
 
 /* start drawing line from origin until the edge of the image */

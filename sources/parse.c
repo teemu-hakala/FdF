@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/01 13:03:57 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/02 09:47:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,12 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 	{
 		temp_height = ft_atoi(numerals[line.point_count]);
 		update_line_length(&line);
+		if (temp_height > map->max_height)
+			map->max_height = temp_height;
 		line.line[line.point_count++] = temp_height;
 	}
+	if (map->max_point_count < line.point_count)
+		map->max_point_count = line.point_count;
 	map->lines[map->line_count] = line;
 	numerals = free_splits(numerals);
 }
