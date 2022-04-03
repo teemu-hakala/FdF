@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:02:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:30:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,11 +175,17 @@ enum e_zoom
 	ZOOM_OUT = -1
 };
 
+void	pan(t_prog *prog);
+int		zoomer(int dir, int zoom);
+void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom);
+
 int		key_handler(int key, t_prog *param);
 int		mouse_handler(int button, int x, int y, t_prog *prog);
 int		mouse_handler_down(int button, int x, int y, t_prog *prog);
 int		mouse_handler_move(int x, int y, t_prog *prog);
 int		mouse_handler_up(int button, int x, int y, t_prog *prog);
+void	rotate_colour_theme(t_prog *prog);
+void	rotate_projection(t_prog *prog);
 void	hook_all(t_prog *prog);
 
 void	validate_line(char *line);
