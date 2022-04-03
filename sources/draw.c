@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 19:14:24 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 19:24:30 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ char	select_intersections(t_pt ssi[4])
 	{
 		if (ssi[i] != NULL)
 		{
-			ssi[number_of_intersections] = ssi[i];
+			ssi[number_of_intersections++] = ssi[i];
 			ssi[i] = NULL;
 		}
 		i++;
@@ -181,18 +181,41 @@ char	select_intersections(t_pt ssi[4])
 	return (number_of_intersections);
 }
 
-t_pt	*crop_segment(t_segm *s)
+/* Must possibly swap the segment begin and end points to match the order... */
+/*
+	Since the segments start from the same pixel, intersections might actually
+	be more than 2 at {.row = 0, .col = 0}...
+ */
+t_segm	*crop_segment(t_segm *s)
 {
 	t_pt	screen_segment_intersections[4];
 	int		out_of_bounds;
-	t_pt	*cropped_segment;
+	int		intersection_count;
 
 	out_of_bounds = FALSE;
 	calculate_screen_segment_intersections(s, screen_segment_intersections);
-	cropped_segment = select_intersections(screen_segment_intersections);
+	intersection_count = select_intersections(screen_segment_intersections);
+	if (intersection_count == 0)
+		out_of_bounds = TRUE;
+	else if (intersection_count == 1)
+	{
+		s->b = (t_pt){.row = screen_segment_intersections[0].row, \
+			.col = screen_segment_intersections[0].col};
+		s->e = (t_pt){.row = screen_segment_intersections[0].row, \
+			.col = screen_segment_intersections[0].col};
+	}
+	else if (intersection_count == 2)
+	{
+		s->b = (t_pt){.row = screen_segment_intersections[0].row, \
+			.col = screen_segment_intersections[0].col};
+		s->e = (t_pt){.row = screen_segment_intersections[1].row, \
+			.col = screen_segment_intersections[1].col};
+	}
+	else if (intersection_count < 0 || intersection_count > 2)
+		exit_msg("intersection_count too high or too low\n", EXIT_ERROR);
 	if (out_of_bounds == TRUE)
 		return (NULL);
-	return (cropped_segment);
+	return (s);
 }
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
