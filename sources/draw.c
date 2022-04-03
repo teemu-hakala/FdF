@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:03:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:08:17 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int colour)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * data->bytes_per_pixel);
-//printf("hexadecimal colour: %x\n", colour);
 	*(unsigned int *)dst = (unsigned int)colour;
 }
 
@@ -31,13 +30,16 @@ int	compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf)
 	return (NO_SWAP);
 }
 
-void	swap_points(t_pt **point0, t_pt **point1)
+void	swap_points(t_pt **point0, t_pt **point1, int condition)
 {
 	t_pt	*temp;
 
-	temp = *point0;
-	*point0 = *point1;
-	*point1 = temp;
+	if (condition == DO_SWAP)
+	{
+		temp = *point0;
+		*point0 = *point1;
+		*point1 = temp;
+	}
 }
 
 void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
@@ -97,11 +99,8 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	int		pxs;
 	int		pt;
 
-	if (compare_heights(o->b, o->e, p->fdf) == DO_SWAP)
-	{
-		swap_points(&o->b, &o->e);
-		swap_points(&s->b, &s->e);
-	}
+	swap_points(&s->b, &s->e, compare_heights(o->b, o->e, p->fdf));
+	swap_points(&o->b, &o->e, compare_heights(o->b, o->e, p->fdf));
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
 // printf("dt: {.row == %f, .col == %f}\n", dt.row, dt.col);
 	pxs = (int)sqrt(dt.row * dt.row + dt.col * dt.col);
