@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 11:06:07 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:04:36 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,9 @@ void	init_img(t_mlx *mlx);
 
 # define P0 0
 # define P1 1
+
+# define LOWEST (double)0.4242424242424242
+# define HIGHEST (double)1.0
 
 int		get_colour(double percentage, t_segm *pts, t_fdf *fdf);
 

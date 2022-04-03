@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 12:42:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:03:37 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ int	in_range(int lowest, int value, int upto)
 	return (lowest <= value && value < upto);
 }
 
+double skew(double min, double percentage, double max)
+{
+	return (min + percentage * (1 - min) / max);
+}
+
 int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 {
 	int		max_abs_height;
@@ -75,12 +80,13 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 		get_altitude(fdf->map.max_height, fdf);
 	if (fdf->map.lines[pts->b->row].line[pts->b->col] \
 		!= fdf->map.lines[pts->e->row].line[pts->e->col])
-		colour_temp = (int)(0xFF * percentage * height_percentage) << 16;
+		colour_temp = (int)(0xFF * \
+			skew(LOWEST, percentage * height_percentage, HIGHEST)) << 16;
 	else
 		colour_temp = (int)(0xFF * height_percentage) << 16;
 	if (colour_temp != 0)
 		return (colour_temp);
-	return (0x00FFFFFF);
+	return ((int)(0xFF * LOWEST) << 16);
 }
 
 /* start drawing line from origin until the edge of the image */
