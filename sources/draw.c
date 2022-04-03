@@ -6,18 +6,19 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 11:21:04 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 12:07:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int colour)
 {
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * data->bytes_per_pixel);
-	*(unsigned int *)dst = (unsigned int)color;
+//printf("hexadecimal colour: %x\n", colour);
+	*(unsigned int *)dst = (unsigned int)colour;
 }
 
 int	compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf)
@@ -67,14 +68,17 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 	double	height_percentage;
 	int		colour_temp;
 
-	max_abs_height = \
+(void)pts;
+(void)fdf;
+	max_abs_height = get_altitude(\
 		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
-				fdf->map.lines[pts->e->row].line[pts->e->col]);
+				fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
 	height_percentage = (double)max_abs_height / fdf->map.max_height;
 	colour_temp = (int)((double)0xFF * percentage * height_percentage) << 16;
-	return (0x00FFFFFF);
+	colour_temp = (int)((double)0xFF * percentage) << 16;
 	if (colour_temp != 0)
 		return (colour_temp);
+	return (0x00FFFFFF);
 }
 
 /* start drawing line from origin until the edge of the image */
