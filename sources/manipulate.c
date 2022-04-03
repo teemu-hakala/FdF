@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:27:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:40:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:51:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom)
 {
 	t_pt	*prev_mse_wrld;
 	t_pt	*mse_wrld;
-	t_pt	norminette_temp;
+	t_pt	*norminette_temp_prev;
+	t_pt	*norminette_temp_curr;
 
-	norminette_temp = (t_pt){.row = mse->row, .col = mse->col};
-	prev_mse_wrld = screen_to_world(&norminette_temp, prog, prev_zoom);
-	mse_wrld = screen_to_world(&norminette_temp, prog, prog->fdf->zoom);
+	norminette_temp_prev = &(t_pt){.row = mse->row, .col = mse->col};
+	norminette_temp_curr = &(t_pt){.row = mse->row, .col = mse->col};
+	prev_mse_wrld = screen_to_world(norminette_temp_prev, prog, prev_zoom);
+	mse_wrld = screen_to_world(norminette_temp_curr, prog, prog->fdf->zoom);
+	prog->fdf->offset = \
+	(t_pt){.row = get_ordinate(mse_wrld->row - prev_mse_wrld->row, prog->fdf), \
+	.col = get_abscissa(mse_wrld->col - prev_mse_wrld->col, prog->fdf)};
 }
