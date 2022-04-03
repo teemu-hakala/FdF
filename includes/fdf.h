@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:30:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:37:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,10 @@ int		get_abscissa(int abscissa, t_fdf *fdf);
 int		get_altitude(int altitude, t_fdf *fdf);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int		compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf);
+void	swap_points(t_pt **point0, t_pt **point1, int condition);
+int		in_range(int lowest, int value, int upto);
+void	project(t_pt *dst, t_pt *src, t_fdf *fdf);
 void	draw(t_mlx *mlx, t_fdf *fdf);
 
 #endif

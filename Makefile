@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/03 15:29:31 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/03 15:36:48 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,11 @@ FILES = \
 	utilities \
 	mouse_handlers \
 	rotators \
-	manipulate
+	manipulate \
+	pixel_put \
+	swap \
+	project \
+	colours
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft

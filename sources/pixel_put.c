@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.c                                        :+:      :+:    :+:   */
+/*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/03 10:22:55 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:36:28 by thakala          ###   ########.fr       */
+/*   Created: 2022/04/03 15:33:28 by thakala           #+#    #+#             */
+/*   Updated: 2022/04/03 15:33:38 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	max(double d0, double d1)
+void	my_mlx_pixel_put(t_img *data, int x, int y, int colour)
 {
-	if (d0 > d1)
-		return (d0);
-	return (d1);
-}
+	char	*dst;
 
-int	abs_max(int i0, int i1)
-{
-	i1 *= (i1 < 0) * -1 | 0x1;
-	i0 *= (i0 < 0) * -1 | 0x1;
-	if (i1 > i0)
-		return (i1);
-	return (i0);
-}
-
-int	in_range(int lowest, int value, int upto)
-{
-	return (lowest <= value && value < upto);
+	dst = data->addr + (y * data->line_length + x * data->bytes_per_pixel);
+	*(unsigned int *)dst = (unsigned int)colour;
 }

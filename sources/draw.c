@@ -6,103 +6,11 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:09:13 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:36:25 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	my_mlx_pixel_put(t_img *data, int x, int y, int colour)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * data->bytes_per_pixel);
-	*(unsigned int *)dst = (unsigned int)colour;
-}
-
-int	compare_heights(t_pt *point0, t_pt *point1, t_fdf *fdf)
-{
-	if (fdf->map.lines[point0->row].line[point0->col] \
-		> fdf->map.lines[point1->row].line[point1->col])
-	{
-		return (DO_SWAP);
-	}
-	return (NO_SWAP);
-}
-
-void	swap_points(t_pt **point0, t_pt **point1, int condition)
-{
-	t_pt	*temp;
-
-	if (condition == DO_SWAP)
-	{
-		temp = *point0;
-		*point0 = *point1;
-		*point1 = temp;
-	}
-}
-
-int	get_projection_angle(t_fdf *fdf)
-{
-	return (30 + 15 * !!(fdf->proj == PROJ_MILITARY));
-}
-
-void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
-{
-	int		screen_row;
-	int		screen_col;
-	int		ordinate;
-	int		abscissa;
-	int		altitude;
-
-	if (fdf->proj == PROJ_PARALLEL)
-	{
-		*dst = (t_pt){.row = get_ordinate(src->row, fdf), \
-			.col = get_abscissa(src->col, fdf)};
-		return ;
-	}
-	ordinate = get_ordinate(src->row, fdf);
-	abscissa = get_abscissa(src->col, fdf);
-	altitude = get_altitude(fdf->map.lines[src->row].line[src->col], fdf);
-	screen_row = (int)((double)(-altitude) \
-		+ (abscissa + ordinate) * sin(M_PI * get_projection_angle(fdf) / 180));
-	screen_col = (int)((double)(abscissa - ordinate) \
-		*cos(M_PI * get_projection_angle(fdf) / 180));
-	*dst = (t_pt){.row = screen_row, .col = screen_col};
-}
-
-int	in_range(int lowest, int value, int upto)
-{
-	return (lowest <= value && value < upto);
-}
-
-double skew(double min, double percentage, double max)
-{
-	return (min + percentage * (1 - min) / max);
-}
-
-int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
-{
-	int		max_abs_height;
-	double	height_percentage;
-	int		colour_temp;
-
-	max_abs_height = get_altitude(\
-		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
-				fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
-	height_percentage = (double)max_abs_height / \
-		get_altitude(fdf->map.max_height, fdf);
-	if (fdf->map.lines[pts->b->row].line[pts->b->col] \
-		!= fdf->map.lines[pts->e->row].line[pts->e->col])
-		colour_temp = (int)(0xFF * \
-			skew(LOWEST, percentage * height_percentage, HIGHEST)) \
-			<< fdf->colour_theme;
-	else
-		colour_temp = (int)(0xFF * height_percentage) << fdf->colour_theme;
-	if (colour_temp != 0)
-		return (colour_temp);
-	return ((int)(0xFF * LOWEST) << fdf->colour_theme);
-}
 
 /* start drawing line from origin until the edge of the image */
 int	draw_line(t_segm *s, t_prog *p, t_segm *o)
