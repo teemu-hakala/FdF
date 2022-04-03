@@ -6,11 +6,29 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:29:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 14:42:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	rotate_colour_theme(t_prog *prog)
+{
+	if (prog->fdf->colour_theme == RED)
+		prog->fdf->colour_theme = GREEN;
+	else if (prog->fdf->colour_theme == GREEN)
+		prog->fdf->colour_theme = BLUE;
+	else if (prog->fdf->colour_theme == BLUE)
+		prog->fdf->colour_theme = RED;
+}
+
+void	rotate_projection(t_prog *prog)
+{
+	if (prog->fdf->proj == PROJ_PARALLEL)
+		prog->fdf->proj = PROJ_ISOMETRIC;
+	else if (prog->fdf->proj == PROJ_ISOMETRIC)
+		prog->fdf->proj = PROJ_PARALLEL;
+}
 
 int	key_handler(int key, t_prog *prog)
 {
@@ -18,6 +36,16 @@ int	key_handler(int key, t_prog *prog)
 		exit_msg("Escape!", 0);
 	if (key == KEY_L_CMD || key == KEY_R_CMD)
 		prog->key->cmd_toggled = !prog->key->cmd_toggled;
+	if (key == KEY_C_OLOUR)
+	{
+		rotate_colour_theme(prog);
+		draw(prog->mlx, prog->fdf);
+	}
+	if (key == KEY_P_ROJECTION)
+	{
+		rotate_projection(prog);
+		draw(prog->mlx, prog->fdf);
+	}
 	ft_putnbr(key);
 	ft_putchar('\n');
 	return (0);
@@ -76,7 +104,7 @@ void	pan(t_prog *prog)
 // printf("offset.row: %d, offset.col: %d\n\n", prog->fdf->offset.row, prog->fdf->offset.col);*/
 // }
 
-void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
+/*void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
 {
 	double	scalar;
 	t_pt	vector;
@@ -87,6 +115,29 @@ void	offsetter(int prev_zoom, t_pt *mse, t_prog *prog)
 	vector = (t_pt){.row = (int)(scalar * (mse->row - prog->fdf->offset.row)), \
 		.col = (int)(scalar * (mse->col - prog->fdf->offset.col))};
 	prog->fdf->offset = vector;
+}*/
+
+t_pt	*screen_to_world(t_pt *screen, t_prog *prog, int zoom)
+{
+	*screen = \
+		(t_pt){.row = (screen->row - prog->fdf->offset.row) / zoom, \
+		.col = (screen->col - prog->fdf->offset.col) / zoom};
+	return (screen);
+}
+
+void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom)
+{
+	t_pt	*prev_mse_wrld;
+	t_pt	*mse_wrld;
+
+	prev_mse_wrld = \
+		screen_to_world(&(t_pt){.row = mse->row, .col = mse->col}, prog, prev_zoom);
+	mse_wrld = \
+		screen_to_world(&(t_pt){.row = mse->row, .col = mse->col}, prog, prog->fdf->zoom);
+printf("prev_mse_wrld->row: %d prev_mse_wrld->col: %d\n", prev_mse_wrld->row, prev_mse_wrld->col);
+printf("mse_wrld->row: %d mse_wrld->col: %d\n", mse_wrld->row, mse_wrld->col);
+	prog->fdf->offset = (t_pt){.row = get_ordinate(mse_wrld->row - prev_mse_wrld->row, prog->fdf), \
+		.col = get_abscissa(mse_wrld->col - prev_mse_wrld->col, prog->fdf)};
 }
 
 int	mouse_handler_down(int button, int x, int y, t_prog *prog)
@@ -103,6 +154,7 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 	prev_zoom = prog->fdf->zoom;
 	if (button == SCROLL_UP)
 	{
+		// prog->fdf->offset = (t_pt){0,0};
 		if (prog->key->cmd_toggled == TRUE)
 		{
 			prog->fdf->height += HEIGHT_ADDITION / prog->fdf->zoom;
@@ -110,6 +162,7 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 		else
 		{
 			prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
+			offsetter(&(t_pt){.row = y, .col = x}, prog, prev_zoom);
 			//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
 		}
 		draw(prog->mlx, prog->fdf);
@@ -117,6 +170,7 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 	}
 	if (button == SCROLL_DOWN)
 	{
+		// prog->fdf->offset = (t_pt){0,0};
 		if (prog->key->cmd_toggled == TRUE)
 		{
 			prog->fdf->height -= HEIGHT_ADDITION / prog->fdf->zoom;
@@ -124,6 +178,7 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 		else
 		{
 			prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
+			offsetter(&(t_pt){.row = y, .col = x}, prog, prev_zoom);
 			//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
 		}
 		draw(prog->mlx, prog->fdf);

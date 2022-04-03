@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:14:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 14:06:44 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
 	int		abscissa;
 	int		altitude;
 
+	if (fdf->proj == PROJ_PARALLEL)
+	{
+		*dst = (t_pt){.row = get_ordinate(src->row, fdf), \
+			.col = get_abscissa(src->col, fdf)};
+		return ;
+	}
 	ordinate = get_ordinate(src->row, fdf);
 	abscissa = get_abscissa(src->col, fdf);
 	altitude = get_altitude(fdf->map.lines[src->row].line[src->col], fdf);
@@ -83,12 +89,13 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 	if (fdf->map.lines[pts->b->row].line[pts->b->col] \
 		!= fdf->map.lines[pts->e->row].line[pts->e->col])
 		colour_temp = (int)(0xFF * \
-			skew(LOWEST, percentage * height_percentage, HIGHEST)) << 16;
+			skew(LOWEST, percentage * height_percentage, HIGHEST)) \
+			<< fdf->colour_theme;
 	else
-		colour_temp = (int)(0xFF * height_percentage) << 16;
+		colour_temp = (int)(0xFF * height_percentage) << fdf->colour_theme;
 	if (colour_temp != 0)
 		return (colour_temp);
-	return ((int)(0xFF * LOWEST) << 16);
+	return ((int)(0xFF * LOWEST) << fdf->colour_theme);
 }
 
 /* start drawing line from origin until the edge of the image */

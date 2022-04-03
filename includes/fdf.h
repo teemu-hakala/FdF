@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:27:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 14:04:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_fdf
 	t_pt		offset;
 	double		height;
 	int			zoom;
+	int			proj;
+	int			colour_theme;
 	t_fdf_map	map;
 }	t_fdf;
 
@@ -143,6 +145,8 @@ enum e_event
 
 enum e_key
 {
+	KEY_C_OLOUR = 8,
+	KEY_P_ROJECTION = 35,
 	KEY_ESC = 53,
 	KEY_L_CMD = 259,
 	KEY_R_CMD = 260
@@ -199,6 +203,13 @@ void	init_img(t_mlx *mlx);
 
 # define LOWEST (double)0.4242424242424242
 # define HIGHEST (double)1.0
+
+enum e_colour_theme
+{
+	RED = 16,
+	GREEN = 8,
+	BLUE = 0
+};
 
 int		get_colour(double percentage, t_segm *pts, t_fdf *fdf);
 
