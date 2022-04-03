@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 12:20:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 12:42:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,16 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 	double	height_percentage;
 	int		colour_temp;
 
-	max_abs_height = get_altitude(fdf->map.lines[pts->b->row] \
-		.line[pts->b->col], fdf);
+	max_abs_height = get_altitude(\
+		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
+				fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
+	height_percentage = (double)max_abs_height / \
+		get_altitude(fdf->map.max_height, fdf);
 	if (fdf->map.lines[pts->b->row].line[pts->b->col] \
 		!= fdf->map.lines[pts->e->row].line[pts->e->col])
-	{
-		max_abs_height = get_altitude(\
-			abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
-					fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
-		height_percentage = (double)max_abs_height / \
-			get_altitude(fdf->map.max_height, fdf);
-		colour_temp = (int)((double)0xFF * percentage * height_percentage * 65536);//
-			//<< 16;
-	}
+		colour_temp = (int)(0xFF * percentage * height_percentage) << 16;
 	else
-		colour_temp = (int)((double)0xFF * percentage * 65536);//) << 16;
+		colour_temp = (int)(0xFF * height_percentage) << 16;
 	if (colour_temp != 0)
 		return (colour_temp);
 	return (0x00FFFFFF);
@@ -96,13 +91,15 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	int		pxs;
 	int		pt;
 
-	// if (compare_heights(p0, p1, fdf) == DO_SWAP)
-	// 	swap_points(&p0, &p1);
+	if (compare_heights(o->b, o->e, p->fdf) == DO_SWAP)
+	{
+		swap_points(&o->b, &o->e);
+		swap_points(&s->b, &s->e);
+	}
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
 // printf("dt: {.row == %f, .col == %f}\n", dt.row, dt.col);
 	pxs = (int)sqrt(dt.row * dt.row + dt.col * dt.col);
-	dt = (t_db_pt){.row = dt.row / pxs, \
-		.col = dt.col / pxs};
+	dt = (t_db_pt){.row = dt.row / pxs, .col = dt.col / pxs};
 	px = (t_db_pt){.row = s->b->row, .col = s->b->col};
 // printf("pxs: %d\n", pxs);
 	pt = 0;
