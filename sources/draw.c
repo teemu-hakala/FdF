@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 18:18:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 19:00:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	overlaps_2d(t_rect *r0, t_rect *r1)
 		&& overlaps_1d(&r0->cols, &r1->cols));
 }
 
-t_rect	rectangularize(t_mmd *rows, t_mmd *cols, t_rect *result)
+t_rect	*rectangularize(t_mmd *rows, t_mmd *cols, t_rect *result)
 {
 	result->rows = (t_mmd){.min = rows->min, .max = rows->max};
 	result->cols = (t_mmd){.min = cols->min, .max = cols->max};
@@ -66,47 +66,97 @@ int	bounding_boxes_intersect(t_segm *segm, t_segm *side)
 	t_rect	*r_side;
 
 	r_segm = rectangularize(\
-		integral_compare(segm->b.row, segm->e.row, &(t_mmd){0, 0}), \
-		integral_compare(segm->b.col, segm->e.col, &(t_mmd){0, 0});
+		integral_compare(segm->b->row, segm->e->row, &(t_mmd){0, 0}), \
+		integral_compare(segm->b->col, segm->e->col, &(t_mmd){0, 0}), \
+		&(t_rect){(t_mmd){0, 0}, (t_mmd){0, 0}});
 	r_side = rectangularize(\
-		integral_compare(side->b.row, side->e.row, &(t_mmd){0, 0})), \
-		integral_compare(side->b.col, side->e.col, &(t_mmd){0, 0}));
+		integral_compare(side->b->row, side->e->row, &(t_mmd){0, 0}), \
+		integral_compare(side->b->col, side->e->col, &(t_mmd){0, 0}), \
+		&(t_rect){(t_mmd){0, 0}, (t_mmd){0, 0}});
 	return (overlaps_2d(r_segm, r_side));
 }
 
-t_pt	*intersect(t_segm *segm, t_segm *side)
+t_l_pt	*calculate_segment_intersection(t_segm *segm, t_segm *side, \
+	t_l_pt *l_pt)
+{
+	(void)segm;
+	(void)side;
+
+	return (l_pt);
+}
+
+t_l_pt	*intersect(t_segm *segm, t_segm *side)
 {
 	if (bounding_boxes_intersect(segm, side))
 	{
-
+		return (calculate_segment_intersection(segm, side, \
+			&(t_l_pt){.row = NO_INTERSECTION, .col = NO_INTERSECTION}));
 	}
 	return (&(t_l_pt){.row = NO_INTERSECTION, .col = NO_INTERSECTION});
+}
+
+void	init_segs(t_segm segs[4], int initialized)
+{
+	if (initialized == FALSE)
+	{
+		segs[TOP] = (t_segm){
+			&(t_pt){.row = 0, .col = 0},
+			&(t_pt){.row = 0, .col = WIN_WIDTH - 1}
+		};
+		segs[RIGHT] = (t_segm){
+			&(t_pt){.row = 0, .col = WIN_WIDTH - 1},
+			&(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
+		};
+		segs[BOTTOM] = (t_segm){
+			&(t_pt){.row = WIN_HEIGHT - 1, .col = 0},
+			&(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
+		};
+		segs[LEFT] = (t_segm){
+			&(t_pt){.row = 0, .col = 0},
+			&(t_pt){.row = WIN_HEIGHT - 1, .col = 0}
+		};
+		initialized = TRUE;
+	}
+}
+
+t_pt	*l_pt_to_pt(t_l_pt *l_pt, t_pt *result)
+{
+	if (l_pt->row != NO_INTERSECTION && l_pt->col != NO_INTERSECTION)
+		return (result = (t_pt){.row = (int)l_pt->row, .col = (int)l_pt->col});
+	return (NULL);
+}
+
+void	set_intersection(t_segm *s, t_segm segs[4], int initialized, \
+	t_pt ssi[4])
+{
+	t_pt	*intersection;
+
+	intersection = l_pt_to_pt(intersect(s, &segs[TOP], &(t_l_pt){0, 0}), \
+		&(t_pt){0, 0});
+	if (intersection != NULL)
+		ssi[TOP] = intersection;
+	intersection = l_pt_to_pt(intersect(s, &segs[RIGHT], &(t_l_pt){0, 0}), \
+		&(t_pt){0, 0});
+	if (intersection != NULL)
+		ssi[RIGHT] = intersection;
+	intersection = l_pt_to_pt(intersect(s, &segs[BOTTOM], &(t_l_pt){0, 0}), \
+		&(t_pt){0, 0});
+	if (intersection != NULL)
+		ssi[BOTTOM] = intersection;
+	interaction = l_pt_to_pt(intersect(s, &segs[LEFT], &(t_l_pt){0, 0}), \
+		&(t_pt){0, 0});
+	if (intersection != NULL)
+		ssi[LEFT] = intersection;
 }
 
 void	calculate_screen_segment_intersections(t_segm *s, \
 	t_pt screen_segment_intersections[4])
 {
-	static t_segm	top = (t_segm){
-		(t_pt){.row = 0, .col = 0},
-		(t_pt){.row = 0, .col = WIN_WIDTH - 1}
-	};
-	static t_segm	right = (t_segm){
-		(t_pt){.row = 0, .col = WIN_WIDTH - 1},
-		(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
-	};
-	static t_segm	bottom = (t_segm){
-		(t_pt){.row = WIN_HEIGHT - 1, .col = 0},
-		(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
-	};
-	static t_segm	left = (t_segm){
-		(t_pt){.row = 0, .col = 0},
-		(t_pt){.row = WIN_HEIGHT - 1, .col = 0}
-	};
+	static t_segm	segs[4];
+	static int		initialized = FALSE;
 
-	screen_segment_intersections[TOP] = intersect(s, top);
-	screen_segment_intersections[RIGHT] = intersect(s, right);
-	screen_segment_intersections[BOTTOM] = intersect(s, bottom);
-	screen_segment_intersections[LEFT] = intersect(s, left);
+	init_segs(segs, initialized);
+	set_intersections(s, segs, initialized, screen_segment_intersections);
 }
 
 t_pt	*crop_segment(t_segm *s)
