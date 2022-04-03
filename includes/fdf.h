@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 14:04:10 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:02:47 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ enum e_mouse
 enum e_projection
 {
 	PROJ_PARALLEL,
-	PROJ_ISOMETRIC
+	PROJ_ISOMETRIC,
+	PROJ_MILITARY
 };
 
 enum e_zoom

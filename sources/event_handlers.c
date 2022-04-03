@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 14:42:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:04:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	rotate_projection(t_prog *prog)
 	if (prog->fdf->proj == PROJ_PARALLEL)
 		prog->fdf->proj = PROJ_ISOMETRIC;
 	else if (prog->fdf->proj == PROJ_ISOMETRIC)
+		prog->fdf->proj = PROJ_MILITARY;
+	else if (prog->fdf->proj == PROJ_MILITARY)
 		prog->fdf->proj = PROJ_PARALLEL;
 }
 

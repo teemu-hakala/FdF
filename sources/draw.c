@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 14:06:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:09:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	swap_points(t_pt **point0, t_pt **point1, int condition)
 	}
 }
 
+int	get_projection_angle(t_fdf *fdf)
+{
+	return (30 + 15 * !!(fdf->proj == PROJ_MILITARY));
+}
+
 void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
 {
 	int		screen_row;
@@ -60,8 +65,9 @@ void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
 	abscissa = get_abscissa(src->col, fdf);
 	altitude = get_altitude(fdf->map.lines[src->row].line[src->col], fdf);
 	screen_row = (int)((double)(-altitude) \
-		+ (abscissa + ordinate) * sin(M_PI * 30 / 180));
-	screen_col = (int)((double)(abscissa - ordinate) *cos(M_PI * 30 / 180));
+		+ (abscissa + ordinate) * sin(M_PI * get_projection_angle(fdf) / 180));
+	screen_col = (int)((double)(abscissa - ordinate) \
+		*cos(M_PI * get_projection_angle(fdf) / 180));
 	*dst = (t_pt){.row = screen_row, .col = screen_col};
 }
 
