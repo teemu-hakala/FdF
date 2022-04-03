@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 20:38:14 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 10:22:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static void	init_fdf(t_fdf *fdf)
 {
 	fdf->origin = (t_pt){.row = 0, .col = 0};//{.row = WIN_HEIGHT / 2, .col = WIN_WIDTH / 2};
 	fdf->color = COLOR_DEF;
-	fdf->zoom = 10;
+	fdf->zoom = (int)max(WIN_HEIGHT / (fdf->map.line_count * SPACING), \
+		WIN_WIDTH / (fdf->map.max_point_count * SPACING));
+	fdf->zoom += !fdf->zoom;
 	fdf->offset = (t_pt){.row = 0, .col = 0};//.row = WIN_HEIGHT / 8, .col = WIN_WIDTH / 8};
 }
 

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 20:41:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 10:52:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,28 @@ typedef struct s_point
 	int		col;
 }	t_pt;
 
+typedef struct s_segment
+{
+	t_pt	b;
+	t_pt	e;
+}	t_segm;
+
 typedef struct s_double_coordinate
 {
 	double	row;
 	double	col;
 }	t_db_pt;
 
-typedef struct s_line
+typedef struct s_cols
 {
 	int		*line;
 	int		point_count;
 	int		size;
-}	t_line;
+}	t_cols;
 
 typedef struct s_map
 {
-	t_line		*lines;
+	t_cols		*lines;
 	int			line_count;
 	int			size;
 	int			max_point_count;
@@ -165,19 +171,29 @@ void	validate_line(char *line);
 
 void	parse(char *filename, t_fdf_map *map);
 
+double	max(double d0, double d1);
+int		abs_max(int i0, int i1);
+
 void	init_req(t_prog *prog);
 void	init_img(t_mlx *mlx);
 
-# define SPACING 77
+# define SPACING 2
 # define DO_SWAP 1
 # define NO_SWAP 0
+
+# define POINT_0 0
+# define POINT_1 1
+
+# define P0 0
+# define P1 1
+
+int		get_colour(double percentage, t_pt pts[2], t_fdf *fdf);
 
 int		get_ordinate(int ordinate, t_fdf *fdf);
 int		get_abscissa(int abscissa, t_fdf *fdf);
 int		get_altitude(int altitude, t_fdf *fdf);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-int		draw_debug_line(t_pt *point0, t_pt *point1, t_fdf *fdf, t_img *image);
 void	draw(t_mlx *mlx, t_fdf *fdf);
 
 #endif
