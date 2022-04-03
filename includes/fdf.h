@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:04:36 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:27:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,19 @@ typedef struct s_mouse
 	char	isdown;
 }	t_mse;
 
+typedef struct s_key_states
+{
+	int		cmd_toggled;
+}	t_key;
+
+# define HEIGHT_ADDITION (double)5.0
+
 typedef struct s_fdf
 {
 	t_pt		origin;
 	t_color		color;
 	t_pt		offset;
-	int			height;
+	double		height;
 	int			zoom;
 	t_fdf_map	map;
 }	t_fdf;
@@ -108,6 +115,7 @@ typedef struct s_program
 	t_mlx	*mlx;
 	t_fdf	*fdf;
 	t_mse	*mse;
+	t_key	*key;
 }	t_prog;
 
 # define RETURN_SUCCESS 1
@@ -135,7 +143,9 @@ enum e_event
 
 enum e_key
 {
-	KEY_ESC = 53
+	KEY_ESC = 53,
+	KEY_L_CMD = 259,
+	KEY_R_CMD = 260
 };
 
 enum e_mouse
@@ -160,7 +170,7 @@ enum e_zoom
 	ZOOM_OUT = -1
 };
 
-int		key_handler(int key, void *param);
+int		key_handler(int key, t_prog *param);
 int		mouse_handler(int button, int x, int y, t_prog *prog);
 int		mouse_handler_down(int button, int x, int y, t_prog *prog);
 int		mouse_handler_move(int x, int y, t_prog *prog);

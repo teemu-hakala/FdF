@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 10:22:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:17:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_req(t_prog *prog)
 	init_mlx(prog->mlx);
 	init_fdf(prog->fdf);
 	init_mse(prog);
+	mlx_do_key_autorepeaton(prog->mlx);
 }
 
 void	init_img(t_mlx *mlx)

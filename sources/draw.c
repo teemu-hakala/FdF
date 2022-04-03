@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 13:08:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:14:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 			{
 				project(&p1, &(t_pt){.row = point.row, \
 					.col = point.col + 1}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL}, \
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
 					&(t_segm){&point, &(t_pt){.row = point.row, \
 					.col = point.col + 1}});
 			}
@@ -147,7 +147,7 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 			{
 				project(&p1, &(t_pt){.row = point.row + 1, \
 					.col = point.col}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL}, \
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
 					&(t_segm){&point, &(t_pt){.row = point.row + 1, \
 					.col = point.col}});
 			}

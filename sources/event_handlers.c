@@ -6,21 +6,18 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 19:23:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:29:38 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	key_handler(int key, void *param)
+int	key_handler(int key, t_prog *prog)
 {
-	t_prog	*prog;
-
-	(void) key;
-	prog = (t_prog *)param;
-printf("fdf->origin.row %d\n", prog->fdf->origin.row);
 	if (key == KEY_ESC)
 		exit_msg("Escape!", 0);
+	if (key == KEY_L_CMD || key == KEY_R_CMD)
+		prog->key->cmd_toggled = !prog->key->cmd_toggled;
 	ft_putnbr(key);
 	ft_putchar('\n');
 	return (0);
@@ -106,15 +103,29 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 	prev_zoom = prog->fdf->zoom;
 	if (button == SCROLL_UP)
 	{
-		prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
-		//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		if (prog->key->cmd_toggled == TRUE)
+		{
+			prog->fdf->height += HEIGHT_ADDITION / prog->fdf->zoom;
+		}
+		else
+		{
+			prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
+			//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		}
 		draw(prog->mlx, prog->fdf);
 		return (RETURN_SUCCESS);
 	}
 	if (button == SCROLL_DOWN)
 	{
-		prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
-		//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		if (prog->key->cmd_toggled == TRUE)
+		{
+			prog->fdf->height -= HEIGHT_ADDITION / prog->fdf->zoom;
+		}
+		else
+		{
+			prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
+			//offsetter(prev_zoom, &(t_pt){.row = y, .col = x}, prog);
+		}
 		draw(prog->mlx, prog->fdf);
 		return (RETURN_SUCCESS);
 	}
@@ -159,6 +170,8 @@ int	mouse_handler(int button, int x, int y, t_prog *prog)
 {
 printf("MOUSE_KEY: %d\n", button);
 printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
+printf("prog->fdf->offset.row: %d, prog->fdf->offset.row: %d\n",
+prog->fdf->offset.row, prog->fdf->offset.col);
 printf("x: %d, y: y %d\n", x, y);
 	if (button == SCROLL_UP)
 	{

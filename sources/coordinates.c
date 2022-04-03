@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 20:39:38 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/02 20:41:25 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 13:26:40 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	get_abscissa(int abscissa, t_fdf *fdf)
 
 int	get_altitude(int altitude, t_fdf *fdf)
 {
-	return (altitude * fdf->zoom + fdf->height);
+	return ((int)(altitude * fdf->zoom * fdf->height));
 }
