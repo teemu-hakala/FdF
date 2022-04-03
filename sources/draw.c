@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:36:25 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:18:08 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,84 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	return (RETURN_SUCCESS);
 }
 
+int	overlaps_1d(t_mmd *iv0, t_mmd *iv1)
+{
+	return (iv0->max >= iv1->min && iv1->max >= iv0->min);
+}
+
+int	overlaps_2d(t_rect *r0, t_rect *r1)
+{
+	return (overlaps_1d(&r0->rows, &r1->rows) \
+		&& overlaps_1d(&r0->cols, &r1->cols));
+}
+
+t_rect	rectangularize(t_mmd *rows, t_mmd *cols, t_rect *result)
+{
+	result->rows = (t_mmd){.min = rows->min, .max = rows->max};
+	result->cols = (t_mmd){.min = cols->min, .max = cols->max};
+	return (result);
+}
+
+int	bounding_boxes_intersect(t_segm *segm, t_segm *side)
+{
+	t_rect	*r_segm;
+	t_rect	*r_side;
+
+	r_segm = rectangularize(\
+		integral_compare(segm->b.row, segm->e.row, &(t_mmd){0, 0}), \
+		integral_compare(segm->b.col, segm->e.col, &(t_mmd){0, 0});
+	r_side = rectangularize(\
+		integral_compare(side->b.row, side->e.row, &(t_mmd){0, 0})), \
+		integral_compare(side->b.col, side->e.col, &(t_mmd){0, 0}));
+	return (overlaps_2d(r_segm, r_side));
+}
+
+t_pt	*intersect(t_segm *segm, t_segm *side)
+{
+	if (bounding_boxes_intersect(segm, side))
+	{
+
+	}
+	return (&(t_l_pt){.row = NO_INTERSECTION, .col = NO_INTERSECTION});
+}
+
+void	calculate_screen_segment_intersections(t_segm *s, \
+	t_pt screen_segment_intersections[4])
+{
+	static t_segm	top = (t_segm){
+		(t_pt){.row = 0, .col = 0},
+		(t_pt){.row = 0, .col = WIN_WIDTH - 1}
+	};
+	static t_segm	right = (t_segm){
+		(t_pt){.row = 0, .col = WIN_WIDTH - 1},
+		(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
+	};
+	static t_segm	bottom = (t_segm){
+		(t_pt){.row = WIN_HEIGHT - 1, .col = 0},
+		(t_pt){.row = WIN_HEIGHT - 1, .col = WIN_WIDTH - 1}
+	};
+	static t_segm	left = (t_segm){
+		(t_pt){.row = 0, .col = 0},
+		(t_pt){.row = WIN_HEIGHT - 1, .col = 0}
+	};
+
+	screen_segment_intersections[TOP] = intersect(s, top);
+	screen_segment_intersections[RIGHT] = intersect(s, right);
+	screen_segment_intersections[BOTTOM] = intersect(s, bottom);
+	screen_segment_intersections[LEFT] = intersect(s, left);
+}
+
+t_pt	*crop_segment(t_segm *s)
+{
+	t_pt	screen_segment_intersections[4];
+	int		out_of_bounds;
+
+	out_of_bounds = FALSE;
+	calculate_screen_segment_intersections(s, screen_segment_intersections);
+	if (out_of_bounds == TRUE)
+		return (NULL);
+}
+
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {
 	t_pt	point;
@@ -60,7 +138,8 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 			{
 				project(&p1, &(t_pt){.row = point.row, \
 					.col = point.col + 1}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
+				draw_line(crop_segment(&(t_segm){&p0, &p1}), \
+					&(t_prog){mlx, fdf, 0, 0}, \
 					&(t_segm){&point, &(t_pt){.row = point.row, \
 					.col = point.col + 1}});
 			}
@@ -68,7 +147,8 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 			{
 				project(&p1, &(t_pt){.row = point.row + 1, \
 					.col = point.col}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
+				draw_line(crop_segment(&(t_segm){&p0, &p1}), \
+					&(t_prog){mlx, fdf, 0, 0}, \
 					&(t_segm){&point, &(t_pt){.row = point.row + 1, \
 					.col = point.col}});
 			}

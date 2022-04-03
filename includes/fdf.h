@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:37:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:04:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ typedef struct s_point
 	int		row;
 	int		col;
 }	t_pt;
+
+typedef struct s_minmaxdir
+{
+	int		min;
+	int		max;
+}	t_mmd;
+
+typedef struct s_rectangle
+{
+	t_mmd	rows;
+	t_mmd	cols;
+}	t_rect;
+
+typedef struct s_long_point
+{
+	long	row;
+	long	col;
+}	t_l_pt;
 
 typedef struct s_segment
 {
@@ -194,6 +212,7 @@ void	parse(char *filename, t_fdf_map *map);
 
 double	max(double d0, double d1);
 int		abs_max(int i0, int i1);
+t_mmd	*integral_compare(int *i0, int *i1, t_mmd *minmaxindir);
 
 void	init_req(t_prog *prog);
 void	init_img(t_mlx *mlx);
@@ -216,6 +235,18 @@ enum e_colour_theme
 	RED = 16,
 	GREEN = 8,
 	BLUE = 0
+};
+
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648l
+# define NO_INTERSECTION 9223372036854775807l
+
+enum e_screen_edges
+{
+	TOP,
+	RIGHT,
+	BOTTOM,
+	LEFT
 };
 
 int		get_colour(double percentage, t_segm *pts, t_fdf *fdf);
