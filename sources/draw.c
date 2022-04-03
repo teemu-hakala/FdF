@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 19:24:30 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 19:34:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,29 @@ int	bounding_boxes_intersect(t_segm *segm, t_segm *side)
 	return (overlaps_2d(r_segm, r_side));
 }
 
+t_l_pt	*csi_case_a(t_segm *a, t_segm *b, t_l_pt *l_pt)
+{
+
+}
+
+t_l_pt	*csi_case_b(t_segm *a, t_segm *b, t_l_pt *l_pt)
+{
+
+}
+
+t_l_pt	*csi_case_c(t_segm *a, t_segm *b, t_l_pt *l_pt)
+{
+
+}
+
 t_l_pt	*calculate_segment_intersection(t_segm *segm, t_segm *side, \
 	t_l_pt *l_pt)
 {
 	(void)segm;
 	(void)side;
-
+	csi_case_a(segm, side, l_pt);
+	csi_case_b(segm, side, l_pt);
+	csi_case_c(segm, side, l_pt);
 	return (l_pt);
 }
 
