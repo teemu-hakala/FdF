@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   manipulate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:27:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:28:09 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 15:40:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom)
 {
 	t_pt	*prev_mse_wrld;
 	t_pt	*mse_wrld;
+	t_pt	norminette_temp;
 
-	prev_mse_wrld = screen_to_world(&(t_pt){.row = mse->row, .col = mse->col}, \
-		prog, prev_zoom);
-	mse_wrld = screen_to_world(&(t_pt){.row = mse->row, .col = mse->col}, \
-		prog, prog->fdf->zoom);
+	norminette_temp = (t_pt){.row = mse->row, .col = mse->col};
+	prev_mse_wrld = screen_to_world(&norminette_temp, prog, prev_zoom);
+	mse_wrld = screen_to_world(&norminette_temp, prog, prog->fdf->zoom);
 }
