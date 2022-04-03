@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 19:00:41 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 19:14:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	int		pxs;
 	int		pt;
 
+	if (s == NULL)
+		return (RETURN_SUCCESS);
 	swap_points(&s->b, &s->e, compare_heights(o->b, o->e, p->fdf));
 	swap_points(&o->b, &o->e, compare_heights(o->b, o->e, p->fdf));
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
@@ -119,6 +121,7 @@ void	init_segs(t_segm segs[4], int initialized)
 	}
 }
 
+/* explicitly disallow truncation of set bits in long transformation?: */
 t_pt	*l_pt_to_pt(t_l_pt *l_pt, t_pt *result)
 {
 	if (l_pt->row != NO_INTERSECTION && l_pt->col != NO_INTERSECTION)
@@ -159,15 +162,37 @@ void	calculate_screen_segment_intersections(t_segm *s, \
 	set_intersections(s, segs, initialized, screen_segment_intersections);
 }
 
+char	select_intersections(t_pt ssi[4])
+{
+	char	number_of_intersections;
+	char	i;
+
+	number_of_intersections = 0;
+	i = 0;
+	while (i < 4)
+	{
+		if (ssi[i] != NULL)
+		{
+			ssi[number_of_intersections] = ssi[i];
+			ssi[i] = NULL;
+		}
+		i++;
+	}
+	return (number_of_intersections);
+}
+
 t_pt	*crop_segment(t_segm *s)
 {
 	t_pt	screen_segment_intersections[4];
 	int		out_of_bounds;
+	t_pt	*cropped_segment;
 
 	out_of_bounds = FALSE;
 	calculate_screen_segment_intersections(s, screen_segment_intersections);
+	cropped_segment = select_intersections(screen_segment_intersections);
 	if (out_of_bounds == TRUE)
 		return (NULL);
+	return (cropped_segment);
 }
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
