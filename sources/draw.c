@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 12:07:03 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 12:20:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,21 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 	double	height_percentage;
 	int		colour_temp;
 
-(void)pts;
-(void)fdf;
-	max_abs_height = get_altitude(\
-		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
-				fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
-	height_percentage = (double)max_abs_height / fdf->map.max_height;
-	colour_temp = (int)((double)0xFF * percentage * height_percentage) << 16;
-	colour_temp = (int)((double)0xFF * percentage) << 16;
+	max_abs_height = get_altitude(fdf->map.lines[pts->b->row] \
+		.line[pts->b->col], fdf);
+	if (fdf->map.lines[pts->b->row].line[pts->b->col] \
+		!= fdf->map.lines[pts->e->row].line[pts->e->col])
+	{
+		max_abs_height = get_altitude(\
+			abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
+					fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
+		height_percentage = (double)max_abs_height / \
+			get_altitude(fdf->map.max_height, fdf);
+		colour_temp = (int)((double)0xFF * percentage * height_percentage * 65536);//
+			//<< 16;
+	}
+	else
+		colour_temp = (int)((double)0xFF * percentage * 65536);//) << 16;
 	if (colour_temp != 0)
 		return (colour_temp);
 	return (0x00FFFFFF);
