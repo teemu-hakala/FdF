@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 10:52:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 11:06:07 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_point
 
 typedef struct s_segment
 {
-	t_pt	b;
-	t_pt	e;
+	t_pt	*b;
+	t_pt	*e;
 }	t_segm;
 
 typedef struct s_double_coordinate
@@ -187,7 +187,7 @@ void	init_img(t_mlx *mlx);
 # define P0 0
 # define P1 1
 
-int		get_colour(double percentage, t_pt pts[2], t_fdf *fdf);
+int		get_colour(double percentage, t_segm *pts, t_fdf *fdf);
 
 int		get_ordinate(int ordinate, t_fdf *fdf);
 int		get_abscissa(int abscissa, t_fdf *fdf);

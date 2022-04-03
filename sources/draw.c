@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 10:58:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/03 11:21:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,43 +61,47 @@ int	in_range(int lowest, int value, int upto)
 	return (lowest <= value && value < upto);
 }
 
-int	get_colour(double percentage, t_pt pts[2], t_fdf *fdf)
+int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 {
 	int		max_abs_height;
 	double	height_percentage;
+	int		colour_temp;
 
 	max_abs_height = \
-		abs_max(fdf->map.lines[pts[POINT_0].row].line[pts[POINT_0].col], \
-				fdf->map.lines[pts[POINT_1].row].line[pts[POINT_1].col]);
+		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
+				fdf->map.lines[pts->e->row].line[pts->e->col]);
 	height_percentage = (double)max_abs_height / fdf->map.max_height;
-	return ((int)(0xFF * percentage * height_percentage) << 16);
+	colour_temp = (int)((double)0xFF * percentage * height_percentage) << 16;
+	return (0x00FFFFFF);
+	if (colour_temp != 0)
+		return (colour_temp);
 }
 
 /* start drawing line from origin until the edge of the image */
-int	draw_line(t_segm *s, t_prog *p)
+int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 {
 	t_db_pt	dt;
 	t_db_pt	px;
 	int		pxs;
-	int		p;
+	int		pt;
 
 	// if (compare_heights(p0, p1, fdf) == DO_SWAP)
 	// 	swap_points(&p0, &p1);
-	dt = (t_db_pt){.row = s->b.row - s->e.row, .col = s->b.col - s->e.col};
+	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
 // printf("dt: {.row == %f, .col == %f}\n", dt.row, dt.col);
 	pxs = (int)sqrt(dt.row * dt.row + dt.col * dt.col);
 	dt = (t_db_pt){.row = dt.row / pxs, \
 		.col = dt.col / pxs};
-	px = (t_db_pt){.row = s->b.row, .col = s->b.col};
+	px = (t_db_pt){.row = s->b->row, .col = s->b->col};
 // printf("pxs: %d\n", pxs);
-	p = 0;
-	while (p++ < pxs)
+	pt = 0;
+	while (pt++ < pxs)
 	{
 // printf("px: {.row == %f, .col == %f}\n", px.row, px.col);
 		if (in_range(0, (int)px.row, WIN_HEIGHT) \
 			&& in_range(0, (int)px.col, WIN_WIDTH))
 			my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
-				get_colour((double)p / pxs, (t_pt[2]){s->b, s->e}, p->fdf));
+				get_colour((double)pt / pxs, o, p->fdf));
 		px = (t_db_pt){.row = px.row + dt.row, \
 			.col = px.col + dt.col};
 	}
@@ -122,13 +126,17 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 			{
 				project(&p1, &(t_pt){.row = point.row, \
 					.col = point.col + 1}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL});
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL}, \
+					&(t_segm){&point, &(t_pt){.row = point.row, \
+					.col = point.col + 1}});
 			}
 			if (point.row + 1 < fdf->map.line_count)
 			{
 				project(&p1, &(t_pt){.row = point.row + 1, \
 					.col = point.col}, fdf);
-				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL});
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, NULL}, \
+					&(t_segm){&point, &(t_pt){.row = point.row + 1, \
+					.col = point.col}});
 			}
 			point.col++;
 		}
