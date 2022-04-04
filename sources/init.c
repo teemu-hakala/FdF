@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 12:10:09 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 19:56:48 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_origin(t_fdf *fdf)
 {
 	fdf->origin = (t_pt){.row = get_ordinate(fdf->map.line_count, fdf) / 2, \
 		.col = get_abscissa(fdf->map.max_point_count, fdf) / 2};
+printf("fdf->origin.row: %d, fdf->origin.col: %d\n", fdf->origin.row, fdf->origin.col);
 }
 
 void	init_offset(t_fdf *fdf)
@@ -40,9 +41,9 @@ static void	init_fdf(t_fdf *fdf)
 		WIN_WIDTH / (fdf->map.max_point_count * SPACING));
 	fdf->zoom += !fdf->zoom;
 	init_origin(fdf);
-	fdf->color = COLOR_DEF;
 	init_offset(fdf);
-	fdf->height = fdf->map.max_height;
+	fdf->color = COLOR_DEF;
+	fdf->height = 1; //fdf->map.max_height;
 	fdf->proj = PROJ_PARALLEL;
 }
 

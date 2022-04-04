@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:26:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 12:02:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 19:54:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int	mouse_handler_scroll_down(t_prog *prog, t_pt *mse)
 
 int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 {
-	int		prev_zoom;
-
 	if (button == LEFT_CLICK)
 	{
 		prog->mse->prev = prog->mse->curr;
@@ -61,7 +59,6 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 		prog->mse->isdown = TRUE;
 		return (mouse_handler(button, x, y, prog));
 	}
-	prev_zoom = prog->fdf->zoom;
 	if (button == SCROLL_UP)
 		return (mouse_handler_scroll_up(prog, &(t_pt){.row = y, .col = x}));
 	if (button == SCROLL_DOWN)

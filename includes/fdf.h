@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 15:39:11 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 16:30:23 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_key_states
 	int		cmd_toggled;
 }	t_key;
 
-# define HEIGHT_ADDITION (double)5.0
+# define HEIGHT_ADDITION (double)5.5
 
 typedef struct s_fdf
 {
