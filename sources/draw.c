@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 11:51:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 15:45:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	px = (t_db_pt){.row = s->b->row, .col = s->b->col};
 // printf("pxs: %d\n", pxs);
 	pt = 0;
-	while (pt++ < pxs)
+	while (pt <= pxs)
 	{
 // printf("px: {.row == %f, .col == %f}\n", px.row, px.col);
 		if (in_range(0, (int)px.row, WIN_HEIGHT) \
@@ -40,6 +40,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 				get_colour((double)pt / pxs, o, p->fdf));
 		px = (t_db_pt){.row = px.row + dt.row, \
 			.col = px.col + dt.col};
+		pt++;
 	}
 	return (RETURN_SUCCESS);
 }
