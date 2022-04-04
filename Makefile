@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/03 15:36:48 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/04 21:00:18 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ FILES = \
 	pixel_put \
 	swap \
 	project \
-	colours
+	colours \
+	init_public
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft

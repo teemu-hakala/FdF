@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 20:15:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:56:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	update_map_line_count(t_fdf_map *map)
 {
-	t_cols		*del_lines;
+	t_row		*del_lines;
 	int			temp_size;
 
 	if (map->size > map->line_count)
@@ -23,16 +23,16 @@ static void	update_map_line_count(t_fdf_map *map)
 	temp_size = map->line_count * 3 / 2 + 1;
 	if (temp_size < 0)
 		exit_msg("temp_size < 0\n", EXIT_ERROR);
-	map->lines = (t_cols *)malloc(sizeof(t_cols) * (((size_t)temp_size) + 1));
+	map->lines = (t_row *)malloc(sizeof(t_row) * (((size_t)temp_size) + 1));
 	if (map->lines == NULL)
 		exit_msg("map->lines mallocation error!\n", EXIT_ERROR);
 	if (del_lines != NULL)
-		ft_memcpy(map->lines, del_lines, (size_t)map->size * sizeof(t_cols));
+		ft_memcpy(map->lines, del_lines, (size_t)map->size * sizeof(t_row));
 	map->size = temp_size;
 	free(del_lines);
 }
 
-static void	update_line_length(t_cols *line)
+static void	update_line_length(t_row *line)
 {
 	int			*deletable_line;
 	int			temp_size;
@@ -70,10 +70,10 @@ static void	*free_splits(char **strings)
 static void	add_line_to_map(t_fdf_map *map, char *line_string)
 {
 	char		**numerals;
-	t_cols		line;
+	t_row		line;
 	int			temp_height;
 
-	ft_bzero(&line, sizeof(t_cols));
+	ft_bzero(&line, sizeof(t_row));
 	numerals = ft_strsplit(line_string, ' ');
 	if (numerals == NULL)
 		exit_msg("ft_strsplit return was NULL!\n", EXIT_ERROR);
@@ -113,6 +113,7 @@ void	parse(char *filename, t_fdf_map *map)
 		//validate_line(line);
 		add_line_to_map(map, line);
 		free(line);
+		line_lengths_equal(map);
 		map->line_count += (uint64_t) !!status;
 	}
 	free(line); //Double free? Does gnl place NULL in *line when returns 0?

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 20:09:24 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:44:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,6 @@ static void	init_mlx(t_mlx *mlx)
 		exit_msg("Window pointer is NULL!", EXIT_ERROR);
 }
 
-void	init_origin(t_fdf *fdf)
-{
-	fdf->origin = (t_pt){.row = get_ordinate(fdf->map.line_count, fdf) / 2, \
-		.col = get_abscissa(fdf->map.max_point_count, fdf) / 2};
-printf("fdf->origin.row: %d, fdf->origin.col: %d\n", fdf->origin.row, fdf->origin.col);
-}
-
-void	init_offset(t_fdf *fdf)
-{
-	fdf->offset = (t_pt){.row = WIN_HEIGHT / 2 - fdf->origin.row, \
-		.col = WIN_WIDTH / 2 - fdf->origin.col};
-}
-
-void	init_map(t_fdf_map *map)
-{
-	map->height.max = INT_MIN;
-	map->height.min = INT_MAX;
-}
-
 static void	init_fdf(t_fdf *fdf)
 {
 	fdf->zoom = (int)max(WIN_HEIGHT / (fdf->map.line_count * SPACING), \
@@ -49,7 +30,7 @@ static void	init_fdf(t_fdf *fdf)
 	init_origin(fdf);
 	init_offset(fdf);
 	fdf->color = COLOR_DEF;
-	fdf->height = 1; //fdf->map.max_height;
+	fdf->height = 1;
 	fdf->proj = PROJ_PARALLEL;
 }
 

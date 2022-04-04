@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 20:09:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 21:00:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ typedef struct s_double_coordinate
 	double	col;
 }	t_db_pt;
 
-typedef struct s_cols
+typedef struct s_row
 {
 	int		*line;
 	int		point_count;
 	int		size;
-}	t_cols;
+}	t_row;
 
 typedef struct s_map
 {
-	t_cols		*lines;
+	t_row		*lines;
 	int			line_count;
 	int			size;
 	int			max_point_count;
@@ -208,6 +208,7 @@ void	rotate_projection(t_prog *prog);
 void	hook_all(t_prog *prog);
 
 void	validate_line(char *line);
+void	line_lengths_equal(t_fdf_map *map);
 
 void	parse(char *filename, t_fdf_map *map);
 

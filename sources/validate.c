@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 12:37:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/03/29 19:16:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 21:04:54 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,13 @@ void	validate_line(char *line)
 	}
 	if (invalidator_found)
 		exit_msg("Unknown character in map!\n", EXIT_ERROR);
+}
+
+void	line_lengths_equal(t_fdf_map *map)
+{
+	if (map->line_count > 0 && map->lines[map->line_count - 1].point_count \
+		!= map->lines[map->line_count].point_count)
+	{
+		exit_msg("Line lengths differ!\n", EXIT_ERROR);
+	}
 }
