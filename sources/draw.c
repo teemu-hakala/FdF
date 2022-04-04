@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 15:45:02 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:55:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 
 	init_img(mlx, fdf);
 	point.row = 0;
-	while (point.row < fdf->map.line_count)
+	while (point.row < fdf->map.line_count) // line_count one too many?
 	{
 		point.col = 0;
 		while (point.col < fdf->map.lines[point.row].point_count)

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 20:44:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 21:19:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	init_fdf(t_fdf *fdf)
 	init_origin(fdf);
 	init_offset(fdf);
 	fdf->color = COLOR_DEF;
-	fdf->height = 1;
+	fdf->height = 0.05;
 	fdf->proj = PROJ_PARALLEL;
 }
 

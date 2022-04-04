@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 21:00:02 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 21:43:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ void	init_map(t_fdf_map *map);
 void	init_req(t_prog *prog);
 void	init_origin(t_fdf *fdf);
 void	init_offset(t_fdf *fdf);
+void	reset_origin(t_fdf *fdf);
 void	init_img(t_mlx *mlx, t_fdf *fdf);
 
 # define SPACING 2

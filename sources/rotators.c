@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:27:29 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 12:09:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:02:21 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,4 @@ void	rotate_projection(t_prog *prog)
 		prog->fdf->proj = PROJ_MILITARY;
 	else if (prog->fdf->proj == PROJ_MILITARY)
 		prog->fdf->proj = PROJ_PARALLEL;
-	init_offset(prog->fdf);
 }
