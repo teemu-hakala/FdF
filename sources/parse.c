@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 10:48:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 10:50:08 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	parse(char *filename, t_fdf_map *map)
 		else if (status == 0)
 			break ;
 		update_map_line_count(map);
-		validate_line(line);
+		//validate_line(line);
 		add_line_to_map(map, line);
 		free(line);
 		map->line_count += (uint64_t) !!status;

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 14:57:33 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 12:10:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,26 @@ static void	init_mlx(t_mlx *mlx)
 		exit_msg("Window pointer is NULL!", EXIT_ERROR);
 }
 
+void	init_origin(t_fdf *fdf)
+{
+	fdf->origin = (t_pt){.row = get_ordinate(fdf->map.line_count, fdf) / 2, \
+		.col = get_abscissa(fdf->map.max_point_count, fdf) / 2};
+}
+
+void	init_offset(t_fdf *fdf)
+{
+	fdf->offset = (t_pt){.row = WIN_HEIGHT / 2 - fdf->origin.row, \
+		.col = WIN_WIDTH / 2 - fdf->origin.col};
+}
+
 static void	init_fdf(t_fdf *fdf)
 {
-	fdf->origin = (t_pt){.row = WIN_HEIGHT / 2, .col = WIN_WIDTH / 2};
-	fdf->color = COLOR_DEF;
 	fdf->zoom = (int)max(WIN_HEIGHT / (fdf->map.line_count * SPACING), \
 		WIN_WIDTH / (fdf->map.max_point_count * SPACING));
 	fdf->zoom += !fdf->zoom;
-	fdf->offset = (t_pt){.row = WIN_HEIGHT / 8, .col = WIN_WIDTH / 8};
+	init_origin(fdf);
+	fdf->color = COLOR_DEF;
+	init_offset(fdf);
 	fdf->height = fdf->map.max_height;
 	fdf->proj = PROJ_PARALLEL;
 }
@@ -50,8 +62,9 @@ void	init_req(t_prog *prog)
 	mlx_do_key_autorepeaton(prog->mlx);
 }
 
-void	init_img(t_mlx *mlx)
+void	init_img(t_mlx *mlx, t_fdf *fdf)
 {
+	(void)fdf;
 	mlx->img.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel, \
 		&mlx->img.line_length, &mlx->img.endian);

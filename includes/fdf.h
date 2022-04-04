@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 18:49:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 12:09:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,9 @@ int		abs_max(int i0, int i1);
 t_mmd	*integral_compare(int i0, int i1, t_mmd *minmaxindir);
 
 void	init_req(t_prog *prog);
-void	init_img(t_mlx *mlx);
+void	init_origin(t_fdf *fdf);
+void	init_offset(t_fdf *fdf);
+void	init_img(t_mlx *mlx, t_fdf *fdf);
 
 # define SPACING 2
 # define DO_SWAP 1

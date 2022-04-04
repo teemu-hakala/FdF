@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 19:34:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 11:51:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	}
 	return (RETURN_SUCCESS);
 }
-
+/*
 int	overlaps_1d(t_mmd *iv0, t_mmd *iv1)
 {
 	return (iv0->max >= iv1->min && iv1->max >= iv0->min);
@@ -138,7 +138,7 @@ void	init_segs(t_segm segs[4], int initialized)
 	}
 }
 
-/* explicitly disallow truncation of set bits in long transformation?: */
+// explicitly disallow truncation of set bits in long transformation?:
 t_pt	*l_pt_to_pt(t_l_pt *l_pt, t_pt *result)
 {
 	if (l_pt->row != NO_INTERSECTION && l_pt->col != NO_INTERSECTION)
@@ -198,11 +198,10 @@ char	select_intersections(t_pt ssi[4])
 	return (number_of_intersections);
 }
 
-/* Must possibly swap the segment begin and end points to match the order... */
-/*
-	Since the segments start from the same pixel, intersections might actually
-	be more than 2 at {.row = 0, .col = 0}...
- */
+/// Must possibly swap the segment begin and end points to match the order...
+// Since the segments start from the same pixel, intersections might actually
+//	be more than 2 at {.row = 0, .col = 0}...
+
 t_segm	*crop_segment(t_segm *s)
 {
 	t_pt	screen_segment_intersections[4];
@@ -264,6 +263,45 @@ void	draw(t_mlx *mlx, t_fdf *fdf)
 					.col = point.col}, fdf);
 				draw_line(crop_segment(&(t_segm){&p0, &p1}), \
 					&(t_prog){mlx, fdf, 0, 0}, \
+					&(t_segm){&point, &(t_pt){.row = point.row + 1, \
+					.col = point.col}});
+			}
+			point.col++;
+		}
+		point.row++;
+	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
+	mlx_destroy_image(mlx->mlx, mlx->img.img);
+}
+*/
+
+void	draw(t_mlx *mlx, t_fdf *fdf)
+{
+	t_pt	point;
+	t_pt	p0;
+	t_pt	p1;
+
+	init_img(mlx, fdf);
+	point.row = 0;
+	while (point.row < fdf->map.line_count)
+	{
+		point.col = 0;
+		while (point.col < fdf->map.lines[point.row].point_count)
+		{
+			project(&p0, &point, fdf);
+			if (point.col + 1 < fdf->map.lines[point.row].point_count)
+			{
+				project(&p1, &(t_pt){.row = point.row, \
+					.col = point.col + 1}, fdf);
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
+					&(t_segm){&point, &(t_pt){.row = point.row, \
+					.col = point.col + 1}});
+			}
+			if (point.row + 1 < fdf->map.line_count)
+			{
+				project(&p1, &(t_pt){.row = point.row + 1, \
+					.col = point.col}, fdf);
+				draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
 					&(t_segm){&point, &(t_pt){.row = point.row + 1, \
 					.col = point.col}});
 			}

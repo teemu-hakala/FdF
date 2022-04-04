@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:26:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 15:26:34 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 12:02:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	mouse_handler_scroll_up(t_prog *prog, t_pt *mse)
 	{
 		prev_zoom = prog->fdf->zoom;
 		prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
+		init_origin(prog->fdf);
 		offsetter(mse, prog, prev_zoom);
 	}
 	draw(prog->mlx, prog->fdf);
@@ -42,6 +43,7 @@ int	mouse_handler_scroll_down(t_prog *prog, t_pt *mse)
 	{
 		prev_zoom = prog->fdf->zoom;
 		prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
+		init_origin(prog->fdf);
 		offsetter(mse, prog, prev_zoom);
 	}
 	draw(prog->mlx, prog->fdf);
