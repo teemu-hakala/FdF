@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 19:56:48 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:09:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ void	init_offset(t_fdf *fdf)
 {
 	fdf->offset = (t_pt){.row = WIN_HEIGHT / 2 - fdf->origin.row, \
 		.col = WIN_WIDTH / 2 - fdf->origin.col};
+}
+
+void	init_map(t_fdf_map *map)
+{
+	map->height.max = INT_MIN;
+	map->height.min = INT_MAX;
 }
 
 static void	init_fdf(t_fdf *fdf)

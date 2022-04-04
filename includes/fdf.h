@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 16:30:23 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:09:44 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_map
 	int			size;
 	int			max_point_count;
 	int			max_height;
+	t_mmd		height;
 }	t_fdf_map;
 
 typedef struct s_mouse
@@ -214,6 +215,7 @@ double	max(double d0, double d1);
 int		abs_max(int i0, int i1);
 t_mmd	*integral_compare(int i0, int i1, t_mmd *minmaxindir);
 
+void	init_map(t_fdf_map *map);
 void	init_req(t_prog *prog);
 void	init_origin(t_fdf *fdf);
 void	init_offset(t_fdf *fdf);

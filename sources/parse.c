@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 10:50:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:15:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ static void	add_line_to_map(t_fdf_map *map, char *line_string)
 	{
 		temp_height = ft_atoi(numerals[line.point_count]);
 		update_line_length(&line);
-		if (temp_height > map->max_height)
-			map->max_height = temp_height;
+		if (temp_height > map->height.max)
+			map->height.max = temp_height;
+		if (temp_height < map->height.min)
+			map->height.min = temp_height;
 		line.line[line.point_count++] = temp_height;
 	}
 	if (map->max_point_count < line.point_count)
