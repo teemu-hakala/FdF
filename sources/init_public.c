@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:44:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 22:52:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/04 23:09:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ void	init_origin(t_fdf *fdf)
 
 void	reset_origin(t_fdf *fdf)
 {
-printf("fdf->prigin.row: %d, fdf->prigin.col: %d\n", fdf->origin.row, fdf->origin.col);
 	fdf->origin = (t_pt){.row = (fdf->map.line_count - 1) * fdf->zoom / 2, \
 		.col = fdf->map.max_point_count * fdf->zoom / 2};
 	fdf->offset = (t_pt){.row = WIN_HEIGHT / 2 - fdf->origin.row, \
 		.col = WIN_WIDTH / 2 - fdf->origin.col};
-printf("fdf->origin.row: %d, fdf->origin.col: %d\n", fdf->origin.row, fdf->origin.col);
+	//project_offset(&fdf->offset, &fdf->offset, fdf);
 }
 
 void	init_offset(t_fdf *fdf)
