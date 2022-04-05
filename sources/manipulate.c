@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:27:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 23:13:00 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 07:54:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	zoomer(int dir, int zoom)
 {
-printf("zoom: %d\n", zoom);
 	if (dir == ZOOM_IN)
 	{
 		if ((zoom << 1) >> 1 == zoom)
