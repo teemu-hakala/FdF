@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 20:56:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:10:14 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	update_line_length(t_row *line)
 	temp_size = line->point_count * 3 / 2 + 1;
 	if (temp_size < 0)
 		exit_msg("temp_size < 0\n", EXIT_ERROR);
-	line->line = (int *)malloc(sizeof(int) * (size_t)temp_size); // removed + 1
+	line->line = (int *)malloc(sizeof(int) * (size_t)temp_size);
 	if (line->line == NULL)
 		exit_msg("line->line mallocation error!\n", EXIT_ERROR);
 	if (deletable_line != NULL)
@@ -110,13 +110,12 @@ void	parse(char *filename, t_fdf_map *map)
 		else if (status == 0)
 			break ;
 		update_map_line_count(map);
-		//validate_line(line);
 		add_line_to_map(map, line);
 		free(line);
 		line_lengths_equal(map);
 		map->line_count += (uint64_t) !!status;
 	}
-	free(line); //Double free? Does gnl place NULL in *line when returns 0?
+	free(line);
 	if (close(fd) < 0)
 		exit_msg("file descriptor close(2) call error!\n", EXIT_ERROR);
 }
