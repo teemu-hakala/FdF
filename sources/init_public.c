@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:44:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 08:06:42 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 08:59:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	reset_origin(t_fdf *fdf)
 		.col = (fdf->map.max_point_count - 1) * fdf->zoom / 2};
 	fdf->offset = (t_pt){.row = WIN_HEIGHT / 2 - fdf->origin.row, \
 		.col = WIN_WIDTH / 2 - fdf->origin.col};
+	project_offset(&fdf->offset, &fdf->offset, fdf);
 }
 
 void	init_offset(t_fdf *fdf)
