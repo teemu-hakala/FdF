@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:35:02 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 19:36:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 19:43:19 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
 			.col = get_abscissa(src->col, fdf) - fdf->origin.col};
 		return ;
 	}
-	ordinate = src->row * fdf->zoom - fdf->origin.row;//get_ordinate(src->row, fdf);
-	abscissa = src->col * fdf->zoom - fdf->origin.col;//get_abscissa(src->col, fdf);
+	ordinate = src->row * fdf->zoom - fdf->origin.row;
+	abscissa = src->col * fdf->zoom - fdf->origin.col;
 	altitude = get_altitude(fdf->map.lines[src->row].line[src->col], fdf);
 	screen_row = (int)((double)(-altitude) \
 		+ (abscissa + ordinate) * sin(M_PI * get_projection_angle(fdf) / 180));

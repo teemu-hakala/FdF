@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:44:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 19:35:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 19:43:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	init_origin(t_fdf *fdf)
 {
 	fdf->origin = (t_pt){.row = (fdf->map.line_count - 1) * fdf->zoom / 2,
 		.col = (fdf->map.max_point_count - 1) * fdf->zoom / 2};
-	//fdf->origin = (t_pt){.row = get_ordinate(fdf->map.line_count - 1, fdf) / 2,
-	//	.col = get_abscissa(fdf->map.max_point_count - 1, fdf) / 2};
 }
 
 void	init_offset(t_fdf *fdf)
