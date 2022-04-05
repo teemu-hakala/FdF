@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:35:02 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 09:20:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 09:24:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_projection_angle(t_fdf *fdf)
 {
-	return (30 + 15 * !!(fdf->proj == PROJ_MILITARY));
+	return (PROJ_ISOMETRIC + DIFF_ISO_MIL * !!(fdf->proj == PROJ_MILITARY));
 }
 
 void	project(t_pt *dst, t_pt *src, t_fdf *fdf)
