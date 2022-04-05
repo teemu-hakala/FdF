@@ -6,13 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:36:02 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 09:30:20 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 21:56:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	skew(double min, double percentage, double max)
+static double	skew(double min, double percentage, double max)
 {
 	return (min + percentage * (1 - min) / max);
 }

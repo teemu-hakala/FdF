@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 20:19:28 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 21:54:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,11 +206,8 @@ void	init_img(t_mlx *mlx, t_fdf *fdf);
 # define POINT_0 0
 # define POINT_1 1
 
-# define P0 0
-# define P1 1
-
-# define LOWEST (double)0.4242424242424242
-# define HIGHEST (double)1.0
+# define LOWEST ((double)0.4242424242424242)
+# define HIGHEST ((double)1.0)
 
 enum e_colour_theme
 {
