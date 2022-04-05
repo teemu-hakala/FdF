@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:04:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 22:44:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 09:20:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,9 @@ int	key_handler(int key, t_prog *prog)
 
 int	mouse_handler(int button, int x, int y, t_prog *prog)
 {
-printf("MOUSE_KEY: %d\n", button);
-printf("prog->fdf->zoom: %d\n", prog->fdf->zoom);
-printf("prog->fdf->offset.row: %d, prog->fdf->offset.row: %d\n",
-prog->fdf->offset.row, prog->fdf->offset.col);
-printf("x: %d, y: y %d\n", x, y);
-	// if (button == SCROLL_UP)
-	// {
-	// 	prog->fdf->zoom = zoomer(ZOOM_IN, prog->fdf->zoom);
-	// 	init_origin(prog->fdf);
-	// 	draw(prog->mlx, prog->fdf);
-	// 	return (RETURN_SUCCESS);
-	// }
-	// if (button == SCROLL_DOWN)
-	// {
-	// 	prog->fdf->zoom = zoomer(ZOOM_OUT, prog->fdf->zoom);
-	// 	init_origin(prog->fdf);
-	// 	draw(prog->mlx, prog->fdf);
-	// 	return (RETURN_SUCCESS);
-	// }
+	(void) button;
+	(void) x;
+	(void) y;
 	draw(prog->mlx, prog->fdf);
 	return (RETURN_SUCCESS);
 }

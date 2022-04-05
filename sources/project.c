@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:35:02 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 09:03:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 09:20:47 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	project_offset(t_pt *dst, t_pt *src, t_fdf *fdf)
 		*sin(M_PI * get_projection_angle(fdf) / 180));
 	screen_col = (int)((double)(abscissa - ordinate) \
 		*cos(M_PI * get_projection_angle(fdf) / 180));
-printf("ordinate: %d, abscissa: %d\n", ordinate, abscissa);
-printf("screen_row: %d, screen_col: %d\n", screen_row, screen_col);
+// printf("ordinate: %d, abscissa: %d\n", ordinate, abscissa);
+// printf("screen_row: %d, screen_col: %d\n", screen_row, screen_col);
 	*dst = (t_pt){.row = screen_row, .col = screen_col};
 }
