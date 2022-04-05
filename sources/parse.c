@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:33:15 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 20:10:14 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 21:26:51 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	parse(char *filename, t_fdf_map *map)
 		line_lengths_equal(map);
 		map->line_count += (uint64_t) !!status;
 	}
+	if (map->size == 0)
+		exit_msg("No lines in map\n", EXIT_ERROR);
 	free(line);
 	if (close(fd) < 0)
 		exit_msg("file descriptor close(2) call error!\n", EXIT_ERROR);
