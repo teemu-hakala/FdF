@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:27:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 07:54:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 08:21:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,15 @@ void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom)
 	prog->fdf->offset = \
 	(t_pt){.row = get_ordinate(mse_wrld->row - prev_mse_wrld->row, prog->fdf), \
 	.col = get_abscissa(mse_wrld->col - prev_mse_wrld->col, prog->fdf)};
+}
+
+void	stick_zoom(unsigned int *zoom)
+{
+	unsigned char	c;
+
+	c = 0;
+	while (*zoom >> c != 0)
+		c++;
+	if (c > 0)
+		*zoom &= (0x1U << --c);
 }

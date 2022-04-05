@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 21:19:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 08:12:42 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_fdf(t_fdf *fdf)
 	fdf->zoom = (int)max(WIN_HEIGHT / (fdf->map.line_count * SPACING), \
 		WIN_WIDTH / (fdf->map.max_point_count * SPACING));
 	fdf->zoom += !fdf->zoom;
+	stick_zoom((unsigned int *)&fdf->zoom);
 	init_origin(fdf);
 	init_offset(fdf);
 	fdf->color = COLOR_DEF;
