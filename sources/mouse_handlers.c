@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:26:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 19:53:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:53:59 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	mouse_handler_down(int button, int x, int y, t_prog *prog)
 
 int	mouse_handler_move(int x, int y, t_prog *prog)
 {
-
 	if (prog->mse->isdown == TRUE)
 	{
 		prog->mse->prev = prog->mse->curr;
