@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/04 23:07:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 08:15:36 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ enum e_zoom
 void	pan(t_prog *prog);
 int		zoomer(int dir, int zoom);
 void	offsetter(t_pt *mse, t_prog *prog, int prev_zoom);
+void	stick_zoom(unsigned int *zoom);
 
 int		key_handler(int key, t_prog *param);
 int		mouse_handler(int button, int x, int y, t_prog *prog);
