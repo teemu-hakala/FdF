@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 20:08:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:19:59 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
 	t_pt	p0;
 	t_pt	p1;
 
-	project(&p0, &point, fdf);
+	project(&p0, point, fdf);
 	if (point->col + 1 < fdf->map.lines[point->row].point_count)
 	{
 		project(&p1, &(t_pt){.row = point->row, \
 			.col = point->col + 1}, fdf);
 		draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
-			&(t_segm){&point, &(t_pt){.row = point->row, \
+			&(t_segm){point, &(t_pt){.row = point->row, \
 			.col = point->col + 1}});
 	}
 	if (point->row + 1 < fdf->map.line_count)
@@ -60,7 +60,7 @@ void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
 		project(&p1, &(t_pt){.row = point->row + 1, \
 			.col = point->col}, fdf);
 		draw_line(&(t_segm){&p0, &p1}, &(t_prog){mlx, fdf, 0, 0}, \
-			&(t_segm){&point, &(t_pt){.row = point->row + 1, \
+			&(t_segm){point, &(t_pt){.row = point->row + 1, \
 			.col = point->col}});
 	}
 }

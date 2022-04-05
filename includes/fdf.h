@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 09:24:30 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:19:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_map
 	int			line_count;
 	int			size;
 	int			max_point_count;
-	int			max_height;
 	t_mmd		height;
 }	t_fdf_map;
 
@@ -188,20 +187,16 @@ void	rotate_colour_theme(t_prog *prog);
 void	rotate_projection(t_prog *prog);
 void	hook_all(t_prog *prog);
 
-void	validate_line(char *line);
 void	line_lengths_equal(t_fdf_map *map);
-
 void	parse(char *filename, t_fdf_map *map);
 
 double	max(double d0, double d1);
 int		abs_max(int i0, int i1);
-t_mmd	*integral_compare(int i0, int i1, t_mmd *minmaxindir);
 
 void	init_map(t_fdf_map *map);
 void	init_req(t_prog *prog);
 void	init_origin(t_fdf *fdf);
 void	init_offset(t_fdf *fdf);
-void	reset_origin(t_fdf *fdf);
 void	init_img(t_mlx *mlx, t_fdf *fdf);
 
 # define SPACING 2
@@ -226,15 +221,6 @@ enum e_colour_theme
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648l
-# define NO_INTERSECTION 9223372036854775807l
-
-enum e_screen_edges
-{
-	TOP = 0,
-	RIGHT = 1,
-	BOTTOM = 2,
-	LEFT = 3
-};
 
 int		get_colour(double percentage, t_segm *pts, t_fdf *fdf);
 
@@ -248,7 +234,5 @@ void	swap_points(t_pt **point0, t_pt **point1, int condition);
 int		in_range(int lowest, int value, int upto);
 void	project(t_pt *dst, t_pt *src, t_fdf *fdf);
 void	draw(t_mlx *mlx, t_fdf *fdf);
-
-void	project_offset(t_pt *dst, t_pt *src, t_fdf *fdf);
 
 #endif

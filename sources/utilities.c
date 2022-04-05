@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 10:22:55 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/03 17:50:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:14:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ int	abs_max(int i0, int i1)
 	if (i1 > i0)
 		return (i1);
 	return (i0);
-}
-
-t_mmd	*integral_comparator(int i0, int i1, t_mmd *minmaxindir)
-{
-	*minmaxindir = (t_mmd){.min = i0, .max = i1};
-	if (i0 > i1)
-		*minmaxindir = (t_mmd){.min = i1, .max = i0};
-	return (minmaxindir);
 }
 
 int	in_range(int lowest, int value, int upto)
