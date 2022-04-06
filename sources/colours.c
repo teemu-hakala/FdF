@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:36:02 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/06 11:21:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:41:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	get_colour(double percentage, t_segm *pts, t_fdf *fdf)
 	max_abs_height = get_altitude(\
 		abs_max(fdf->map.lines[pts->b->row].line[pts->b->col], \
 				fdf->map.lines[pts->e->row].line[pts->e->col]), fdf);
-	max_abs_height += !max_abs_height;
+	if (max_abs_height == 0)
+		return ((int)(0xFF * LOWEST) << fdf->colour_theme);
 	alt_div = get_altitude(fdf->map.height.max - fdf->map.height.min, fdf);
 	height_percentage = (double)max_abs_height / \
 		(alt_div + !alt_div * max_abs_height);
