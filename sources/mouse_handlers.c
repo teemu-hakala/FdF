@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:26:27 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 20:53:59 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:11:42 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	mouse_handler_scroll_down(t_prog *prog, t_pt *mse)
 	if (prog->key->cmd_toggled == TRUE)
 	{
 		prog->fdf->height -= HEIGHT_ADDITION / prog->fdf->zoom;
+		prog->fdf->height += (prog->fdf->height == (double)0.0);
 	}
 	else
 	{

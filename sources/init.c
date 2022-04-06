@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:18:22 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 21:18:54 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:18:33 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	init_fdf(t_fdf *fdf)
 	stick_zoom((unsigned int *)&fdf->zoom);
 	init_origin(fdf);
 	init_offset(fdf);
-	fdf->height = 0.05;
+	fdf->height = 1.0;
 	fdf->proj = PROJ_PARALLEL;
 	fdf->colour_theme = RED;
 }

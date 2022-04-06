@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/05 21:58:30 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:18:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
 	pxs = (int)sqrt(dt.row * dt.row + dt.col * dt.col);
 	if (pxs == 0)
-		exit_msg("zero pixels in segment!\n", EXIT_ERROR);
+		return (RETURN_SUCCESS);
 	dt = (t_db_pt){.row = dt.row / pxs, .col = dt.col / pxs};
 	px = (t_db_pt){.row = s->b->row, .col = s->b->col};
 	pt = 0;
