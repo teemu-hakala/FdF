@@ -6,11 +6,11 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/31 11:42:48 by thakala           #+#    #+#              #
-#    Updated: 2022/03/24 14:01:41 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/06 10:42:26 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+LIBFT_NAME = libft.a
 
 FILES = \
 	ft_memset \
@@ -99,11 +99,11 @@ CC = clang
 
 CCFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(LIBFT_NAME)
 
-$(NAME): .pre_requisites $(OBJS) Makefile
+$(LIBFT_NAME): .pre_requisites $(OBJS) Makefile
 	touch .pre_requisites
-	ar rcs $(NAME) $(OBJS)
+	ar rcs $(LIBFT_NAME) $(OBJS)
 
 $(OBJS): $(OBJ_DIR)/%.o:%.c $(H_PATHS) Makefile
 	$(CC) $(CCFLAGS) -c $< -o $@
@@ -117,6 +117,7 @@ clean:
 	/bin/rm -f $(OBJS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(LIBFT_NAME) .pre_requisites
+	/bin/rm -rf $(OBJ_DIR)
 
 re: fclean all

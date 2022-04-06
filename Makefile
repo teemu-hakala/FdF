@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/04 22:59:49 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/06 10:41:37 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,15 +113,11 @@ LIBFT_OBJECT_PATHS = $(addsuffix .o, $(addprefix $(LIBFT_OBJECTS_DIR), \
 SOURCES = sources
 OBJECTS = objects
 INCLUDES = includes
-LIBRARIES = libraries
-DEBUG_OBJECTS = debug_objects
 
 FOLDER_LIST = \
 	$(SOURCES) \
 	$(OBJECTS) \
-	$(INCLUDES) \
-	$(LIBRARIES) \
-	$(DEBUG_OBJECTS)
+	$(INCLUDES)
 
 H_FILES = fdf
 
@@ -146,13 +142,9 @@ all: $(NAME)
 all-debug: $(NAME)
 
 $(NAME): .pre_requisites $(O_PATHS) Makefile
-#	echo $(NAME)
 	touch .pre_requisites
 	$(CC) $(CC_FLAGS) -l$(MATH_LIB) $(MLX_FLAGS) $(LIBFT_FLAGS) \
 		$(O_PATHS) -o $(NAME)
-#	@cat $(DEFAULT_DETECTOR) > .pre_requisites
-#	@echo -n "default" > .pre_requisites
-#	$(shell diff .pre_requisites)
 
 $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 	$(CC) $(CC_FLAGS) $(INCLUSIONS) -c $< -o $@
@@ -179,7 +171,8 @@ clean:
 
 .PHONY: fclean
 fclean: clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(NAME) .pre_requisites
+	/bin/rm -rf $(OBJECTS)
 	make -C $(LIBFT_DIR) fclean
 
 .PHONY: re
@@ -191,20 +184,7 @@ run: all
 	@echo "\033[0;31mWARNING: norminette errors possibly IGNORED\033[0m\n"
 	./fdf $(CMD_LINE_ARG)
 
-#DEBUG_DETECTOR = \
-	eval_tests/scripts/pre_requisite_detectors/build-debug-text.c.test
-#DEFAULT_DETECTOR = \
-	eval_tests/scripts/pre_requisite_detectors/build-default-text.c.test
-
-#debug-re-er:
-#	sleep 2
-#	$(shell cat $(DEBUG_DETECTOR) > .pre_requisites)
-
 .PHONY: debug
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: NAME := $(NAME)-debug
-debug: all-debug #debug-re-er $(NAME)
-#	@echo $(NAME)
-#	cat $(DEBUG_DETECTOR) > .pre_requisites
-#	@$(shell touch .pre_requisites)
-#	@$(shell echo "debug" > .pre_requisites)
+debug: all-debug
