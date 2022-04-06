@@ -6,17 +6,14 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 09:18:51 by jervasti          #+#    #+#              #
-#    Updated: 2022/04/05 09:47:16 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/06 10:46:00 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ALIST = $(shell find . -name \* -print | sort)
-#* salahadawi/*
-
-#valgrind --track-origins=yes
 
 all:
 	@for map in $(ALIST) ; do \
 		echo "\nTesting with file '$$map':" ; \
-		./../../fdf-debug $$map ; \
+		./../../fdf $$map ; \
 	done
