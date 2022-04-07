@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/31 11:42:48 by thakala           #+#    #+#              #
-#    Updated: 2022/04/06 10:42:26 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/07 10:06:28 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,10 @@ CC = clang
 
 CCFLAGS = -Wall -Wextra -Werror
 
+all: $(CCFLAGS) := $(CCFLAGS) -O3 -flto
 all: $(LIBFT_NAME)
+
+all-debug: $(LIBFT_NAME)
 
 $(LIBFT_NAME): .pre_requisites $(OBJS) Makefile
 	touch .pre_requisites
@@ -121,3 +124,6 @@ fclean: clean
 	/bin/rm -rf $(OBJ_DIR)
 
 re: fclean all
+
+debug: $(CCFLAGS) := $(CCFLAGS) -g
+debug: fclean all-debug

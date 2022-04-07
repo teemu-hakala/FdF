@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/07 09:11:47 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/07 10:02:38 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,9 @@ $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 $(LIBFT_NAME):
 	make -C $(LIBFT_DIR)
 
+libft-debug:
+	make -C $(LIBFT_DIR) debug
+
 $(FOLDER_LIST):
 	mkdir -p $@
 
@@ -188,4 +191,5 @@ run: all
 .PHONY: debug
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: NAME := $(NAME)-debug
+debug: $(LIBFT_NAME) := $(LIBFT_NAME)-debug
 debug: all-debug
