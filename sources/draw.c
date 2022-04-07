@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/07 08:39:56 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/07 09:12:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 			&& in_range(0, (int)px.col, WIN_WIDTH))
 			my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
 				get_colour((double)pt / pxs, o, p->fdf));
+		else
+			break ;
 		px = (t_db_pt){.row = px.row + dt.row, .col = px.col + dt.col};
 		pt++;
 	}

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/06 10:41:37 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/07 09:11:47 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ FILES = \
 	swap \
 	project \
 	colours \
-	init_public
+	init_public \
+	segments
 
 LIBFT_NAME = libft
 LIBFT_DIR = libft
