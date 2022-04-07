@@ -6,12 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:49:23 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/07 09:06:54 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/07 09:52:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
 int	overlaps_1d(t_mmd *iv0, t_mmd *iv1)
 {
 	return (iv0->max >= iv1->min && iv1->max >= iv0->min);
@@ -165,23 +166,23 @@ char	select_intersections(t_pt ssi[4])
 	}
 	return (number_of_intersections);
 }
-
+*/
 int	east_of_west(t_pt *point)
 {
 	return (point->col >= 0);
 }
 
-int south_of_north(point)
+int south_of_north(t_pt *point)
 {
-	return (point->row <= 0)
+	return (point->row <= 0);
 }
 
-int west_of_east(point)
+int west_of_east(t_pt *point)
 {
 	return (point->col < WIN_WIDTH);
 }
 
-int north_of_south(point)
+int north_of_south(t_pt *point)
 {
 	return (point->row < WIN_HEIGHT);
 }
@@ -197,14 +198,21 @@ int	in_view(t_pt *point)
 /// Must possibly swap the segment begin and end points to match the order...
 // Since the segments start from the same pixel, intersections might actually
 //	be more than 2 at {.row = 0, .col = 0}...
-t_segm	*crop_segment(t_segm *s)
+t_segm	*crop_segment(t_segm *s, t_segm *o)
 {
-	t_pt	screen_segment_intersections[4];
-	int		out_of_bounds;
-	int		intersection_count;
+	//t_pt	screen_segment_intersections[4];
+	//int		out_of_bounds;
+	//int		intersection_count;
 
-	if (in_view(&s->b) || in_view(&s->e))
+	if (in_view(s->b))
 		return (s);
+	if (in_view(s->e))
+	{
+		swap_points(&s->b, &s->e, DO_SWAP);
+		swap_points(&o->b, &o->e, DO_SWAP);
+		return (s);
+	}
+	/*
 	out_of_bounds = FALSE;
 	calculate_screen_segment_intersections(s, screen_segment_intersections);
 	intersection_count = select_intersections(screen_segment_intersections);
@@ -227,7 +235,7 @@ t_segm	*crop_segment(t_segm *s)
 	else if (intersection_count < 0 || intersection_count > 2)
 		exit_msg("intersection_count too high or too low\n", EXIT_ERROR);
 	if (out_of_bounds == TRUE)
-		return (NULL);
+		return (NULL);*/
 	return (s);
 }
 
@@ -235,28 +243,31 @@ void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
 {
 	t_pt	p0;
 	t_pt	p1;
+	t_segm	*original;
 
 	project(&p0, point, fdf);
 	if (point->col + 1 < fdf->map.lines[point->row].point_count)
 	{
 		project(&p1, &(t_pt){.row = point->row, \
 			.col = point->col + 1}, fdf);
-		draw_line(crop_segment(&(t_segm){&p0, &p1}), \
+		original = &(t_segm){point, &(t_pt){.row = point->row, \
+			.col = point->col + 1}};
+		draw_line(crop_segment(&(t_segm){&p0, &p1}, original), \
 			&(t_prog){mlx, fdf, 0, 0}, \
-			&(t_segm){&point, &(t_pt){.row = point.row, \
-			.col = point.col + 1}});
+			original);
 	}
 	if (point->row + 1 < fdf->map.line_count)
 	{
 		project(&p1, &(t_pt){.row = point->row + 1, \
 			.col = point->col}, fdf);
-		draw_line(crop_segment(&(t_segm){&p0, &p1}), \
+		original = &(t_segm){point, &(t_pt){.row = point->row + 1, \
+			.col = point->col}};
+		draw_line(crop_segment(&(t_segm){&p0, &p1}, original), \
 			&(t_prog){mlx, fdf, 0, 0}, \
-			&(t_segm){&point, &(t_pt){.row = point.row + 1, \
-			.col = point.col}});
+			original);
 	}
 }
-
+/*
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {
 	t_pt	point;
@@ -284,3 +295,4 @@ t_mmd	*integral_comparator(int i0, int i1, t_mmd *minmaxindir)
 		*minmaxindir = (t_mmd){.min = i1, .max = i0};
 	return (minmaxindir);
 }
+*/

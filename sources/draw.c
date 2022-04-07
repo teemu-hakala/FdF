@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/07 09:12:41 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/07 09:55:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	t_db_pt	px;
 	int		pxs;
 	int		pt;
+	int		swap;
 
-	swap_points(&s->b, &s->e, compare_heights(o->b, o->e, p->fdf));
-	swap_points(&o->b, &o->e, compare_heights(o->b, o->e, p->fdf));
+	swap = compare_heights(o->b, o->e, p->fdf);
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
 	pxs = (int)sqrt(dt.row * dt.row + dt.col * dt.col);
 	if (pxs == 0)
@@ -32,8 +32,14 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	{
 		if (in_range(0, (int)px.row, WIN_HEIGHT) \
 			&& in_range(0, (int)px.col, WIN_WIDTH))
-			my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
-				get_colour((double)pt / pxs, o, p->fdf));
+		{
+			if (swap)
+				my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
+					get_colour((double)1.0 - (double)pt / pxs, o, p->fdf));
+			else
+				my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
+					get_colour((double)pt / pxs, o, p->fdf));
+		}
 		else
 			break ;
 		px = (t_db_pt){.row = px.row + dt.row, .col = px.col + dt.col};
@@ -42,7 +48,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	return (RETURN_SUCCESS);
 }
 
-void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
+/*void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
 {
 	t_pt	p0;
 	t_pt	p1;
@@ -64,7 +70,7 @@ void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point)
 			&(t_segm){point, &(t_pt){.row = point->row + 1, \
 			.col = point->col}});
 	}
-}
+}*/
 
 void	draw(t_mlx *mlx, t_fdf *fdf)
 {

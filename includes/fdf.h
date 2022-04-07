@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 11:09:46 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/07 09:16:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/07 09:40:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,5 +256,6 @@ void	swap_points(t_pt **point0, t_pt **point1, int condition);
 int		in_range(int lowest, int value, int upto);
 void	project(t_pt *dst, t_pt *src, t_fdf *fdf);
 void	draw(t_mlx *mlx, t_fdf *fdf);
-
+void	segment_feeder(t_mlx *mlx, t_fdf *fdf, t_pt *point);
+int		draw_line(t_segm *s, t_prog *p, t_segm *o);
 #endif
