@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:08:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/06 11:18:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/07 08:39:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 	int		pxs;
 	int		pt;
 
-	if (s == NULL)
-		return (RETURN_SUCCESS);
 	swap_points(&s->b, &s->e, compare_heights(o->b, o->e, p->fdf));
 	swap_points(&o->b, &o->e, compare_heights(o->b, o->e, p->fdf));
 	dt = (t_db_pt){.row = s->e->row - s->b->row, .col = s->e->col - s->b->col};
@@ -36,8 +34,7 @@ int	draw_line(t_segm *s, t_prog *p, t_segm *o)
 			&& in_range(0, (int)px.col, WIN_WIDTH))
 			my_mlx_pixel_put(&p->mlx->img, (int)px.col, (int)px.row, \
 				get_colour((double)pt / pxs, o, p->fdf));
-		px = (t_db_pt){.row = px.row + dt.row, \
-			.col = px.col + dt.col};
+		px = (t_db_pt){.row = px.row + dt.row, .col = px.col + dt.col};
 		pt++;
 	}
 	return (RETURN_SUCCESS);
