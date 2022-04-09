@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 08:49:23 by thakala           #+#    #+#             */
-/*   Updated: 2022/04/07 09:52:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/04/09 12:50:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int	east_of_west(t_pt *point)
 
 int south_of_north(t_pt *point)
 {
-	return (point->row <= 0);
+	return (point->row >= 0);
 }
 
 int west_of_east(t_pt *point)

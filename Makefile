@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/09 11:07:57 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/09 12:08:58 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,8 +156,13 @@ $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 
 .PHONY: $(LIBFT_NAME)
 $(LIBFT_NAME):
-	if (("$@" == "libft")); then make -C $(LIBFT_DIR); else make -C $(LIBFT_DIR) debug; fi;
-#make -C $(LIBFT_DIR) $(shell if ["$(LIBFT_NAME)" != "libft"]; then printf "debug" fi)
+ifeq ($(LIBFT_NAME), libft)
+	make -C $(LIBFT_DIR)
+else
+	make -C $(LIBFT_DIR) debug
+endif
+#	if (("$@" == "libft")); then make -C $(LIBFT_DIR); else make -C $(LIBFT_DIR) debug; fi;
+#	make -C $(LIBFT_DIR) $(shell if ["$(LIBFT_NAME)" != "libft"]; then printf "debug" fi)
 
 $(FOLDER_LIST):
 	mkdir -p $@
@@ -192,4 +197,9 @@ run: all
 debug: CC_FLAGS := $(CC_FLAGS) -g
 debug: NAME := $(NAME)-debug
 debug: $(LIBFT_NAME) := $(LIBFT_NAME)-debug
-debug: all-debug
+debug: $(LIBFT_NAME) all-debug
+	echo $(NAME)
+	echo $(CC_FLAGS)
+	echo $(LIBFT_NAME)
+
+#make debug LIBFT_NAME=libft-debug

@@ -6,11 +6,11 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/31 11:42:48 by thakala           #+#    #+#              #
-#    Updated: 2022/04/09 11:07:30 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/09 12:04:51 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT_NAME = libft.a
+LIBFT_A_NAME = libft.a
 
 FILES = \
 	ft_memset \
@@ -100,13 +100,13 @@ CC = clang
 CCFLAGS = -Wall -Wextra -Werror
 
 all: $(CCFLAGS) := $(CCFLAGS) -O3 -flto
-all: $(LIBFT_NAME)
+all: $(LIBFT_A_NAME)
 
-all-debug: $(LIBFT_NAME)
+all-debug: $(LIBFT_A_NAME)
 
-$(LIBFT_NAME): .pre_requisites $(OBJS) Makefile
+$(LIBFT_A_NAME): .pre_requisites $(OBJS) Makefile
 	touch .pre_requisites
-	ar rcs $(LIBFT_NAME) $(OBJS)
+	ar rcs $(LIBFT_A_NAME) $(OBJS)
 
 $(OBJS): $(OBJ_DIR)/%.o:%.c $(H_PATHS) Makefile
 	$(CC) $(CCFLAGS) -c $< -o $@
@@ -120,7 +120,7 @@ clean:
 	/bin/rm -f $(OBJS)
 
 fclean: clean
-	/bin/rm -f $(LIBFT_NAME) .pre_requisites
+	/bin/rm -f $(LIBFT_A_NAME) .pre_requisites
 	/bin/rm -rf $(OBJ_DIR)
 
 re: fclean all
