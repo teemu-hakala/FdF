@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/31 11:42:48 by thakala           #+#    #+#              #
-#    Updated: 2022/04/07 10:06:28 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/09 11:07:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,3 +127,4 @@ re: fclean all
 
 debug: $(CCFLAGS) := $(CCFLAGS) -g
 debug: fclean all-debug
+	@echo "libft debug rule called!"

@@ -6,9 +6,11 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 11:07:24 by thakala           #+#    #+#              #
-#    Updated: 2022/04/07 10:02:38 by thakala          ###   ########.fr        #
+#    Updated: 2022/04/09 11:07:57 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+SHELL := /bin/bash
 
 NAME = fdf
 MATH_LIB = m
@@ -154,10 +156,8 @@ $(O_PATHS): $(OBJECTS)/%.o:$(SOURCES)/%.c $(H_PATHS) Makefile
 
 .PHONY: $(LIBFT_NAME)
 $(LIBFT_NAME):
-	make -C $(LIBFT_DIR)
-
-libft-debug:
-	make -C $(LIBFT_DIR) debug
+	if (("$@" == "libft")); then make -C $(LIBFT_DIR); else make -C $(LIBFT_DIR) debug; fi;
+#make -C $(LIBFT_DIR) $(shell if ["$(LIBFT_NAME)" != "libft"]; then printf "debug" fi)
 
 $(FOLDER_LIST):
 	mkdir -p $@
